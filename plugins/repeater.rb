@@ -2,7 +2,7 @@ class Repeater
   include Cinch::Plugin
 
   $help_messages << "#{$settings['settings']['nick']}: ping       :pings everyone in the room"
-  $help_messages << "all: <message> ping everyone in the room"
+  $help_messages << "all: <message>       :broadcast notification to everyone in the room"
 
   listen_to :channel
 
