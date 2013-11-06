@@ -3,6 +3,9 @@
 Simple chat bot for my class chatroom using Cinch.
 
 ### Setup
+
+Clone this repo.
+
 Create `bot.yml`.
 
 ~~~
@@ -15,6 +18,14 @@ settings:
     - "google"
     - "heartbeat"
 ~~~
+
+Then use
+
+`bundle`
+
+Then launch it with
+
+`bundle exec ruby jeeves.rb`
 
 ## Plugins
 
