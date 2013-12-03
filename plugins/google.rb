@@ -9,6 +9,7 @@ class Google
   match /google (.+)/
 
   def search(query)
+    query << " -w3schools"  # ensure queries exclude w3schools results
     url = "http://www.google.com/search?q=#{CGI.escape(query)}"
     res = Nokogiri::HTML(open(url)).at("h3.r")
 
