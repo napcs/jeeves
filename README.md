@@ -10,6 +10,7 @@ Create `bot.yml`.
 
 ~~~
 settings:
+  server: chat.freenode.net
   nick: a_cool_bot_name
   channel: "#some_channel"
   plugins:

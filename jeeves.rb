@@ -32,7 +32,7 @@ end
 @irc = Cinch::Bot.new do
   
   configure do |c|
-    c.server = "irc.freenode.org"
+    c.server = $settings["settings"]["server"]
     c.nick = $settings["settings"]["nick"]
     c.channels = [$settings["settings"]["channel"]]
     c.plugins.plugins = $settings["settings"]["plugins"].map {|plugin| constantize(plugin.split("_").map {|word| word.capitalize}.join(""))}
