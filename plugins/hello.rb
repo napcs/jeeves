@@ -37,7 +37,7 @@ class Hello
   # be in the query variable.
   #
   # For example, the !greetings command captures some user input 
-  # after the phrase. So its value is in the query. But the !hello command
+  # after the phrase. So its value is in the query. But the !hi command
   # does not.
   def execute(message, query)
     
