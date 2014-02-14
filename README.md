@@ -30,11 +30,33 @@ Then launch it with
 
 ## Plugins
 
+* hello:  A simple greeting plugin that demonstrates how a plugin works. Use
+this to build your own new plugin.
 * Heartbeat:  Tests a URL to see if it's up
 * Google: From Cinch's default examples - searches Google and returns result.
 * seen: From Cinch's defaults, tells you the last time someone was seen.
 * repeater: Pings everyone - watches for a message starting with `all:` 
 
+## Making a plugin
+
+Plugins are just Ruby classes that include the Cinch::Plugin module. A plugin
+has a `match` directive and an `execute()` method. Everything else is just 
+Ruby code.
+
+    match /hello/   # This calls the execute() method whenever the bot sees !hello
+
+    # this is called from the matcher.
+    # message.reply sends a message to the channel that the message
+    # originated from.
+    # message.user gets the user that sent the message.
+    # message.user.nick gets the nick of the user that sent the message.
+    def execute(message)
+      message.reply("Hello #{message.user.nick}
+    end
+
+
+See the `hello` plugin for more details, or look at the other plugins to get ideas.
+Make a plugin and contribute it!
 
 ## Contributing
 
