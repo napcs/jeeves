@@ -6,7 +6,7 @@ class Seen
   end
 
 
-  $help_messages << "!seen <username>    : dislays the time and contents of the last message of the specified user "
+  $help_messages << "!seen <username>    : displays the time and contents of the last message of the specified user "
   include Cinch::Plugin
   listen_to :channel
   match /seen (.+)/
