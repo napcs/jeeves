@@ -36,6 +36,8 @@ this to build your own new plugin.
 * Google: From Cinch's default examples - searches Google and returns result.
 * seen: From Cinch's defaults, tells you the last time someone was seen.
 * repeater: Pings everyone - watches for a message starting with `all:` 
+* weather: Gets the weather based on zip or city name
+* countdown: Sets a global timer and lets Jeeves tell you how much time is left till that deadline
 
 ## Making a plugin
 
