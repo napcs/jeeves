@@ -20,7 +20,8 @@ class Heartbeat
       http.read_timeout = 30
       path = url.path == "" ? "/" : url.path
       response = http.request_get(path)
-      (response.code =~ /2|3\d{2}/ ) ? "#{url} is up!" : "#{url} appears to be down."
+      (response.code =~ /2|3\d{2}/ ) ? "#{url} is up!" : "#{url} responded but gave a status code of #{response.code}."
+
     rescue ArgumentError => e
       "#{url} appears to be an invalid URL. I can't use it to make a request."
     rescue URI::InvalidURIError => e
