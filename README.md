@@ -38,6 +38,7 @@ this to build your own new plugin.
 * repeater: Pings everyone - watches for a message starting with `all:` 
 * weather: Gets the weather based on zip or city name
 * countdown: Sets a global timer and lets Jeeves tell you how much time is left till that deadline
+* js_sandbox: Lets you run some JS code and have Jeeves eval it. Uses Node.
 
 ## Making a plugin
 
