@@ -1,0 +1,18 @@
+{
+  "name": "js_sandbox",
+  "version": "0.0.1",
+  "description": "Sandbox command line too for use in bots",
+  "main": "js_sandbox.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Brian Hogan",
+  "license": "MIT",
+  "devDependencies": {
+    "sandbox": "^0.8.6"
+  },
+  "preferGlobal": "true",
+  "bin": {
+    "js_sandbox" : "js_sandbox.js"
+  } 
+}
