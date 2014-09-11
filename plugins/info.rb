@@ -29,7 +29,7 @@ class Info
         message.reply(data[query])
       else
         if query == "reload"
-          load_from_file
+          read_from_file
           message.reply("Data refreshed.")
         elsif query == "help"
           message.reply("Choose from #{data.keys.join(", ")}")
