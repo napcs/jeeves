@@ -13,11 +13,11 @@ class Hello
   $help_messages << "!hello:   Make Jeeves greet you."
 
 
-  # look for commands that start with "!hi"
+  # look for commands that start with "!hello"
   # This will run the "execute" method and pass
   # it the chat message object.
   # This uses a regular expression. 
-  match /hi$/
+  match /hello$/
 
   # this looks for commands that start with !greet and have something after them
   # like "!greet bphogan"
