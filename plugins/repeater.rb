@@ -13,7 +13,7 @@ class Repeater
 
   def listen(m)
     case m.message
-    when /^all:/
+    when /^[Aa]ll:/
       if n = nicks(m)
         m.reply "#{nicks(m)}: ^"
       else
