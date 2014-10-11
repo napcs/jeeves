@@ -25,7 +25,7 @@ end
 class WeatherData
   attr_accessor :city, :temperature, 
     :name, :wind_speed, :wind_degrees,
-    :description, :condition
+    :description, :condition, :wind_cardinal
 
   def initialize(weather_data)
     self.temperature = weather_data["main"]["temp"]
@@ -34,13 +34,34 @@ class WeatherData
     self.condition = weather_data["weather"].first["main"]
     self.description = weather_data["weather"].first["description"]
     self.wind_degrees = weather_data["wind"]["deg"]
-  end
-
-  def to_s
-    "Current temp in #{self.name} is #{self.temperature} degrees. #{self.condition} - #{self.description}"
+    self.wind_cardinal = getCardinal(self.wind_degrees)
   end
   
-
+  def getCardinal(wind_degrees)
+    case wind_degrees
+      when 348.75..11.26 then "N"
+      when 11.25..33.76 then "NNE"
+      when 33.75..56.26 then "NE"
+      when 56.25..78.76 then "ENE"
+      when 78.75..101.26 then "E"
+      when 101.25..123.76 then "ESE"
+      when 123.75..146.26 then "SE"
+      when 146.25..168.76 then "SSE"
+      when 168.75..191.26 then "S"
+      when 191.25..213.76 then "SSW"
+      when 213.75..236.26 then "SW"
+      when 236.25..258.76 then "WSW"
+      when 258.75..281.26 then "W"
+      when 281.25..303.76 then "WNW"    
+      when 303.75..326.26 then "NW"
+      when 326.25..348.76 then "NNW"
+    end
+ end
+    
+  def to_s
+    "Current temp in #{self.name} is #{self.temperature} degrees. The wind is blowing #{self.wind_cardinal} at #{self.wind_speed} mps #{self.condition}. - #{self.description}"
+  end
+  
 end
 # The plugin
 class Weather
@@ -62,7 +83,6 @@ class Weather
   end
 
 end
-
 
 
 
