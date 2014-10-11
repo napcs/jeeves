@@ -39,9 +39,9 @@ class Hello
   # For example, the !greetings command captures some user input 
   # after the phrase. So its value is in the query. But the !hi command
   # does not.
-  def execute(message, query)
+  def execute(message, query=nil)
     
-    # if the query parameter was sent in
+    # if the query parameter was sent in then this one runs
     if query
       # message.reply sends a message to the channel.
       # query is the captured value from the regular expression
