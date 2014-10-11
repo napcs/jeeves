@@ -7,6 +7,7 @@ class HackerNews
   include Cinch::Plugin
 
   $help_messages << "!hn_top:    Snag top story from HackerNews"
+  $help_messages << "!hn_random:  Snag a random story from HackerNews"
 
   match /hn_top$/, method: :top_story 
   match /hn_random$/, method: :random_story
