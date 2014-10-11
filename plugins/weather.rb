@@ -34,10 +34,14 @@ class WeatherData
     self.condition = weather_data["weather"].first["main"]
     self.description = weather_data["weather"].first["description"]
     self.wind_degrees = weather_data["wind"]["deg"]
-    self.wind_cardinal = getCardinal(self.wind_degrees)
+    self.wind_cardinal = get_cardinal(self.wind_degrees)
   end
   
-  def getCardinal(wind_degrees)
+  def to_s
+    "Current temp in #{self.name} is #{self.temperature} degrees. The wind is blowing #{self.wind_cardinal} at #{self.wind_speed} mps #{self.condition}. - #{self.description}"
+  end
+
+  def get_cardinal(wind_degrees)
     case wind_degrees
       when 348.75..11.26 then "N"
       when 11.25..33.76 then "NNE"
@@ -58,9 +62,6 @@ class WeatherData
     end
  end
     
-  def to_s
-    "Current temp in #{self.name} is #{self.temperature} degrees. The wind is blowing #{self.wind_cardinal} at #{self.wind_speed} mps #{self.condition}. - #{self.description}"
-  end
   
 end
 # The plugin
