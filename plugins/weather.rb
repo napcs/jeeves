@@ -38,7 +38,7 @@ class WeatherData
   end
   
   def to_s
-    "Current temp in #{self.name} is #{self.temperature} degrees. The wind is blowing #{self.wind_cardinal} at #{self.wind_speed} mps #{self.condition}. - #{self.description}"
+    "Current temp in #{self.name} is #{self.temperature} degrees. The wind is blowing #{self.wind_cardinal} at #{self.wind_speed} mps. #{self.condition} - #{self.description}"
   end
 
   def get_cardinal(wind_degrees)
