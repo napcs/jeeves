@@ -7,7 +7,7 @@ class Eightball
   match /8ball/
 
 
-  def Answers
+  def answer
     answers = [ 
       "Without question.", 
       "According to my calulations, yes.",
@@ -30,13 +30,13 @@ class Eightball
       "No",
       "I wouldn't count on it"
     ]
-      output = answers[rand(answers.length)]
+      output = answers.shuffle.first
   end
     
 
     
   def execute(message)
-    message.reply(Answers())
+    message.reply(answer())
   end
       
 
