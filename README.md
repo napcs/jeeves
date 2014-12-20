@@ -41,6 +41,9 @@ this to build your own new plugin.
 * js_sandbox: Lets you run some JS code and have Jeeves eval it. Uses Node.
 * info: A simple plugin that reads data strings from a file. Useful for quickly pulling up links in chat
 * hacker_news: Grab top story from HN
+* trivia: A simple trivia question plugin
+* eightball: A simple magic 8-ball plugin
+* rimshot: Link to rimshot sound.
 
 ## Making a plugin
 
