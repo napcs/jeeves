@@ -44,6 +44,7 @@ this to build your own new plugin.
 * trivia: A simple trivia question plugin
 * eightball: A simple magic 8-ball plugin
 * rimshot: Link to rimshot sound.
+* ruby_sandbox: Lets you run some Ruby code and have Jeeves evaluate it.
 
 ## Making a plugin
 
