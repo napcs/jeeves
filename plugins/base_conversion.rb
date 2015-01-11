@@ -14,8 +14,8 @@ class BaseConversion
   $help_messages << "!to_hex:  converts string to hexadecimal"
   
 
-  match /to_binary (.+)/, method: :convertToBinary
-  match /to_hex (.+)/, method: :convertToHex
+  match /to_binary (.+)/, method: :displayBinary
+  match /to_hex (.+)/, method: :displayHex
 
 
   #fixes rubys concatenated binary bytes, eg. 1 = 1, 2 = 10
@@ -35,7 +35,7 @@ class BaseConversion
 
 
 
-  def convertToBinary(m, message)
+  def convertToBinary(message)
     output = Array.new
 
     message.each_byte do |c| 
@@ -52,14 +52,13 @@ class BaseConversion
 
       output.push binary
     end
-
-    m.reply output.join(' ') 
+      output.join(' ')
   end
 
 
 
 
-  def convertToHex(m, message)
+  def convertToHex(message)
     output = Array.new
 
     message.each_byte do |c| 
@@ -72,8 +71,16 @@ class BaseConversion
 
       output.push hex
     end
+     output.join(' ')
+  end
 
-    m.reply output.join(' ')
+
+  def displayBinary(m, message)
+    m.reply convertToBinary(message)
+  end
+
+  def displayHex(m, message)
+    m.reply convertToHex(message)
   end
 
 end
