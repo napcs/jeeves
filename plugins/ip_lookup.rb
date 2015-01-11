@@ -32,5 +32,5 @@ class IpLookup
     m.reply(fetchInfo(ipAddress))
   end
 
-    private :fetchInfo
+  private :fetchInfo
 end
