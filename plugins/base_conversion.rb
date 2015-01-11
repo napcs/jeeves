@@ -12,7 +12,7 @@ class BaseConversion
 
   $help_messages << "!to_binary:  converts string to binary"
   $help_messages << "!to_hex:  converts string to hexadecimal"
-  
+
 
   match /to_binary (.+)/, method: :displayBinary
   match /to_hex (.+)/, method: :displayHex
@@ -23,22 +23,19 @@ class BaseConversion
     while binary.length % 8 != 0
       binary = '0' + binary
     end
-    return binary  
+    binary
   end
 
-  
+
   #create extra spaces around space byte so user can easily see them
   def addSpace(value)
-      value = '  ' + value + '  '
+    value = '  ' + value + '  '
   end
-
-
-
 
   def convertToBinary(message)
     output = Array.new
 
-    message.each_byte do |c| 
+    message.each_byte do |c|
       binary = c.to_s(2)
 
       if binary.length % 8 != 0
@@ -46,13 +43,14 @@ class BaseConversion
       end
 
       #00100000 = space byte
-      if binary == '00100000' 
+      if binary == '00100000'
         binary = addSpace(binary)
       end
 
       output.push binary
     end
-      output.join(' ')
+
+    output.join(' ')
   end
 
 
@@ -61,11 +59,11 @@ class BaseConversion
   def convertToHex(message)
     output = Array.new
 
-    message.each_byte do |c| 
+    message.each_byte do |c|
       hex = c.to_s(16)
 
       #20 = space byte
-      if hex == '20' 
+      if hex == '20'
         hex = addSpace(hex)
       end
 
