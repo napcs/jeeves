@@ -29,7 +29,7 @@ class Info
         message.reply(data[query])
       else
         if query == "reload"
-          read_from_file
+          refresh_data
           message.reply("Data refreshed.")
         elsif query == "help"
           message.reply("Choose from #{data.keys.join(", ")}")
@@ -49,11 +49,16 @@ class Info
     $data ||= read_from_file
   end
 
-  def read_from_file
-    begin
-      YAML.load(File.read("info.yml")) 
-    end
+  def refresh_data
+    $data = read_from_file
   end
+
+  private
+    def read_from_file
+      begin
+        YAML.load(File.read("info.yml")) 
+      end
+    end
 
 
 end
