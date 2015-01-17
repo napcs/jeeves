@@ -14,6 +14,8 @@ class Info
   include Cinch::Plugin
 
   $help_messages << "!info <key> : displays some static content. Try typing just !info"
+
+  match /info$/
   match /info (.+)/
 
   def execute(message, query=nil)
@@ -27,13 +29,13 @@ class Info
           refresh_data
           message.reply("Data refreshed.")
         elsif query == "help"
-          display_help
+          message.reply display_help
         else
           message.reply("I don't know that")
         end
       end
     else
-      display_help
+      message.reply display_help
     end
 
   end
@@ -54,7 +56,7 @@ class Info
     end
 
     def display_help
-      message.reply("Choose from #{data.keys.join(", ")}")
+      "Choose from #{data.keys.join(", ")}"
     end
 
 end
