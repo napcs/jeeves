@@ -5,7 +5,7 @@
 # Define a standard class
 class Hello
 
-  # include the Cinch::Plugin mixin which 
+  # include the Cinch::Plugin mixin which
   # adds the behavior for plugins to this plain Ruby object.
   include Cinch::Plugin
 
@@ -16,12 +16,12 @@ class Hello
   # look for commands that start with "!hello"
   # This will run the "execute" method and pass
   # it the chat message object.
-  # This uses a regular expression. 
+  # This uses a regular expression.
   match /hello$/
 
   # this looks for commands that start with !greet and have something after them
   # like "!greet bphogan"
-  # Still sends the command to the 
+  # Still sends the command to the
   match /greetings (.+)/
 
   # Called when something matches the "match" rule above.
@@ -36,23 +36,25 @@ class Hello
   # then there will be no query - it'll be nil. If there was a capture, it'll
   # be in the query variable.
   #
-  # For example, the !greetings command captures some user input 
-  # after the phrase. So its value is in the query. But the !hi command
+  # For example, the !greetings command captures some user input
+  # after the phrase. So its value is in the query. But the !hello command
   # does not.
   def execute(message, query=nil)
-    
+
     # if the query parameter was sent in then this one runs
     if query
       # message.reply sends a message to the channel.
       # query is the captured value from the regular expression
       # in the matcher.
-      message.reply(query)
+      # So, Jeeves greets the person you say.
+      message.reply("Hi there, #{query}!")
     else
-      # message.user.nick gets the username of the person who sent the 
+      # message.user.nick gets the username of the person who sent the
       # original message.
-      message.reply("hi there #{message.user.nick}!")
+      # So Jeeves greets you.
+      message.reply("Hi there, #{message.user.nick}!")
     end
-   
+
     # and that's it. The rest is up to you! Use any Ruby code
     # you want, including other objects, modules, Gems, whatever!
     # Make an awesome thing!

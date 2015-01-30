@@ -71,7 +71,23 @@ Make a plugin and contribute it!
 ## Contributing
 
 Fork, send pull request. Keep commits small and organized. Don't add features
-to `jeeves.rb` please. Use the plugins.
+to `jeeves.rb` please. Use plugins for that. 
+
+### The Hello plugin
+
+See `plugins/hello.rb` for how to write a basic plugin.
+
+### Test your plugins
+
+See `test/unit/hello_test.rb` for how to test a plugin. Plugins use the
+Cinch-test library.
+
+Use 
+
+    rake test
+
+to run tests.
+
 ## License
 MIT.
 
