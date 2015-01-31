@@ -9,11 +9,11 @@ class IpFetcher
       ip_info = JSON.parse(raw_data)
       output = IpInfo.new(ip_info) 
     rescue SocketError => e 
-      output = "Socket error"
+      output = "Socket error #{e.message}"
     rescue OpenURI::HTTPError => e
-      output = "Argument Error"
-    rescue URI::InvalidURIError
-      output = "Invalid Arguments"
+      output = "Argument Error #{e.message}"
+    rescue URI::InvalidURIError => e
+      output = "Argument Error #{e.message}"
     end
     output
   end
@@ -38,7 +38,7 @@ class IpInfo
   end
     
   def to_s
-    "Longitude: #{@longitude}, Latitude: #{@latitude}, Ip: #{@ip}, Area Code: #{@area_code}, Continent: #{@continent_code}, Timezone: #{@timezone}, ISP: #{@isp}, Country: #{@country} #{@country_code4}"
+    "Longitude: #{self.longitude}, Latitude: #{self.latitude}, Ip: #{self.ip}, Area Code: #{self.area_code}, Continent: #{self.continent_code}, Timezone: #{self.timezone}, ISP: #{self.isp}, Country: #{self.country} #{self.country_code4}"
   end
 end
     
