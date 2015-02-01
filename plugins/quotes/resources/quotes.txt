@@ -20,7 +20,7 @@ Once you start thinking more about where you want to be than about making the be
 When you say 'I wrote a program that crashed Windows,' people just stare at you blankly and say 'Hey, I got those with the system, for free.’ - Linus Torvalds
 Programmers are in the enviable position of not only getting to do what they want to, but because the end result is so important they get paid to do it. There are other professions like that, but not that many. - Linus Torvalds
 It's hardware that makes a machine fast. It's software that makes a fast machine slow. - Craig Bruce
-Most software today is very much like an Egyptian pyramid with It's hard enough to find an error in your code when you're looking for it; it's even harder when you've assumed your code is error-free. - Steve McConnell
+It's hard enough to find an error in your code when you're looking for it; it's even harder when you've assumed your code is error-free. - Steve McConnell
 Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it. - Brian Kernighan
 It's not at all important to get it right the first time. It's vitally important to get it right the last time. - Andrew Hunt and David Thomas
 Any fool can write code that a computer can understand. Good programmers write code that humans can understand. - Martin Fowler
