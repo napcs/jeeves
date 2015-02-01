@@ -1,8 +1,8 @@
 class Quotes
   include Cinch::Plugin
 
-  $help_messages << '!quote  -  Get an awesome quote.'
-  $help_messages << '!quote Awesome quote I found - author attribution  -  Add an awesome quote so someone can get it later.'
+  $help_messages << '!quote  :  A random quote will be printed to the screen.'
+  $help_messages << '!quote <quote> : Add a quote to the list of quotes to be displayed. Quote must be properly attributed and must be at least 27 characters long. ex: The dude abides. - The Dude'
 
   match /quote(.*)/, method: :run_quotes
 
