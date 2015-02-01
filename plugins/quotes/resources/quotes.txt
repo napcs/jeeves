@@ -1,0 +1,32 @@
+Any sufficiently advanced technology is indistinguishable from magic. - Arthur C. Clarke
+The Linux philosophy is 'Laugh in the face of danger'. Oops. Wrong One. 'Do it yourself'. Yes, that's it. - Linus Torvalds
+Relying on the government to protect your privacy is like asking a peeping tom to install your window blinds. - John Perry Barlow
+People who are really serious about software should make their own hardware. - Alan Kay
+Microsoft isn't evil, they just make really crappy operating systems. - Linus Torvalds
+I think complexity is mostly sort of crummy stuff that is there because it's too expensive to change the interface. - Jaron Lanier
+Doing linear scans over an associative array is like trying to club someone to death with a loaded Uzi. - Larry Wall
+Civilization advances by extending the number of important operations which we can perform without thinking of them. - Alfred North Whitehead
+The easiest way to stop piracy is not by putting antipiracy technology to work. It's by giving those people a service that's better than what they're receiving from the pirates. - Gabe Newell
+If you think technology can solve your security problems, then you don't understand the problems and you don't understand the technology. - Bruce Schneier
+Creativity is just connecting things. When you ask creative people how they did something, they feel a little guilty because they didn't really do it, they just saw something. It seemed obvious to them after a while. That's because they were able to connect experiences they've had and synthesize new things. - Steve Jobs
+That's been one of my mantras - focus and simplicity. Simple can be harder than complex: You have to work hard to get your thinking clean to make it simple. But it's worth it in the end because once you get there, you can move mountains. - Steve Jobs
+Your work is going to fill a large part of your life, and the only way to be truly satisfied is to do what you believe is great work. And the only way to do great work is to love what you do. If you haven't found it yet, keep looking. Don't settle. As with all matters of the heart, you'll know when you find it. - Steve Jobs
+Stay hungry, stay foolish. - Steve Jobs
+You can't just ask customers what they want and then try to give that to them. By the time you get it built, they'll want something new. - Steve Jobs
+Intelligence is the ability to avoid doing work, yet getting the work done. - Linus Torvalds
+I'd much rather have 15 people arguing about something than 15 people splitting into two camps, each side convinced it's right and not talking to the other. - Linus Torvalds
+Most good programmers do programming not because they expect to get paid or get adulation by the public, but because it is fun to program. - Linus Torvalds
+Once you start thinking more about where you want to be than about making the best product, you're screwed. - Linus Torvalds
+When you say 'I wrote a program that crashed Windows,' people just stare at you blankly and say 'Hey, I got those with the system, for free.’ - Linus Torvalds
+Programmers are in the enviable position of not only getting to do what they want to, but because the end result is so important they get paid to do it. There are other professions like that, but not that many. - Linus Torvalds
+It's hardware that makes a machine fast. It's software that makes a fast machine slow. - Craig Bruce
+Most software today is very much like an Egyptian pyramid with It's hard enough to find an error in your code when you're looking for it; it's even harder when you've assumed your code is error-free. - Steve McConnell
+Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it. - Brian Kernighan
+It's not at all important to get it right the first time. It's vitally important to get it right the last time. - Andrew Hunt and David Thomas
+Any fool can write code that a computer can understand. Good programmers write code that humans can understand. - Martin Fowler
+Copy and paste is a design error. - David Parnas
+Without requirements or design, programming is the art of adding bugs to an empty text file. - Louis Srygley
+Often designers do complicated things that improve the capacity on a particular hardware platform when it might actually be cheaper to buy more hardware. - Martin Fowler
+When you find you have to add a feature to a program, and the program's code is not structured in a convenient way to add the feature, first refactor the program to make it easy to add the feature, then add the feature. - Martin Fowler
+The definition I use for pattern is an idea that has been useful in one practical context and will probably be useful in others - Martin Fowler
+When you feel the need to write a comment, first try to refactor the code so that any comment becomes superfluous. - Martin Fowler
