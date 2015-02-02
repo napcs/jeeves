@@ -1,5 +1,5 @@
 require 'test_helper.rb'
-require 'quotes/quotes'
+require 'quotes'
 
 class QuotesTest < MiniTest::Test
   def move_test_quotes_in
@@ -13,12 +13,14 @@ class QuotesTest < MiniTest::Test
   end
 
   def test_quote_is_returned
+    move_test_quotes_in
+
     bot = make_bot(Quotes)
     message = make_message(bot, '!quote')
     quote = get_replies(message).first
     quote = quote.strip.squeeze(' ') unless quote.nil?
 
-    puts 'The quote was: ' << quote
+    move_test_quotes_out
 
     assert !quote.nil? && !quote.empty? && quote.length >= 'The Dude abides - Jeffery Lebowski.'.length && quote.include?(' - ')
   end
