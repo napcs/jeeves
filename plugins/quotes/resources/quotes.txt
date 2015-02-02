@@ -30,3 +30,5 @@ Often designers do complicated things that improve the capacity on a particular 
 When you find you have to add a feature to a program, and the program's code is not structured in a convenient way to add the feature, first refactor the program to make it easy to add the feature, then add the feature. - Martin Fowler
 The definition I use for pattern is an idea that has been useful in one practical context and will probably be useful in others - Martin Fowler
 When you feel the need to write a comment, first try to refactor the code so that any comment becomes superfluous. - Martin Fowler
+Wheel reinvention is a constant problem for software engineers. It is not that we like doing things over and over. It is just that sometimes when you are designing systems it is hard to realize that the circular friction reduction device with a central axis that you have just built is, in fact, a wheel. - Russ Olsen
+Whenever you put in a feature before you really need it, you are guilty of programming while stupid; if you wait until you really need the thing, you are likely to have a better understanding of what you need to do and how you should go about doing it. - Russ Olsen
