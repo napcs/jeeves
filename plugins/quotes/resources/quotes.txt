@@ -40,7 +40,7 @@ Redundant comments are just places to collect lies and misinformation. - Robert 
 When you are working on a problem, you sometimes get so close to it that you can’t see all the options. You miss elegant solutions because the creative part of your mind is suppressed by the intensity of your focus. Sometimes the best way to solve a problem is to go home, eat dinner, watch TV, go to bed, and then wake up the next morning and take a shower. - Robert C. Martin
 Who can justify the expense of a six-lane highway through the middle of a small town that anticipates growth? Who would want such a road through their town? - Robert C. Martin
 The functionality that you create today has a good chance of changing in the next release, but the readability of your code will have a profound effect on all the changes that will ever be made. - Robert C. Martin
-The majority of the cost of a software project is in long-term maintenance. - Robert C. MartinRobert C. Martin
+The majority of the cost of a software project is in long-term maintenance. - Robert C. Martin
 Error handling is important, but if it obscures logic, it’s wrong. - Robert C. Martin
 When you see commented-out code, delete it! - Robert C. Martin
 The only way to make the deadline—the only way to go fast—is to keep the code as clean as possible at all times. - Robert C. Martin
