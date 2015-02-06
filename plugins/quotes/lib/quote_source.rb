@@ -14,7 +14,7 @@ class QuoteSource
   private
 
   def random_quote
-    QUOTES[rand(QUOTES.length) - 1]
+    QUOTES.shuffle.first
   end
 
   def add_quote(quote)
