@@ -2,7 +2,7 @@ class IpFetcher
   require 'json'
   require 'open-uri'
 
-  def self.fetchInfo(ipAddress)
+  def self.fetch_info(ipAddress)
     url = "http://www.telize.com/geoip/#{ipAddress}"
     begin
       raw_data = open(url).read
@@ -44,19 +44,14 @@ end
     
 class IpLookup
 
-  $help_messages << "!ip_lookup <ip address>: displays information about IP"
+  $help_messages << "!ip_lookup <ip address>  :displays information about IP"
 
   include Cinch::Plugin
 
-  match /ip_lookup (.+)/
+  match /ip_lookup (.+)/, method: :fetch_info
 
-  def execute(m, ipAddress)
-    m.reply(fetchInfo(ipAddress))
-  end
-
-  def fetchInfo(ipAddress)
-    ipInfo = IpFetcher.fetchInfo(ipAddress)
-    ipInfo.to_s
+  def fetch_info(m,ipAddress)
+    m.reply IpFetcher.fetch_info(ipAddress).to_s
   end
 
 end
