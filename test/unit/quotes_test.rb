@@ -12,7 +12,7 @@ class QuotesTest < MiniTest::Test
     FileUtils.mv("config/quotes/test_resources/quotes.txt", "config/quotes/quotes.txt")
   end
 
-  def quote_file_does_not_exists
+  def quote_file_does_not_exist
     FileUtils.mv("config/quotes/quotes.txt", "config/quotes/test_resources/quotes.txt")
   end
 
@@ -25,10 +25,9 @@ class QuotesTest < MiniTest::Test
     bot = make_bot(Quotes)
     message = make_message(bot, "!quote")
     quote = get_replies(message).first
-    quote = quote.strip.squeeze(' ') unless quote.nil?
     move_test_quotes_out
 
-    assert !quote.nil? && !quote.empty? && quote.length > 24 && quote.include?(' - ')
+    assert !quote.nil? && !quote.empty? && quote.length > 24 && quote.include?(' - ') && !quote.include?("Attention :amitchellbullard")
   end
 
   def test_quote_addition_message_is_displayed
@@ -42,37 +41,23 @@ class QuotesTest < MiniTest::Test
   end
 
   def test_default_message_is_displayed_when_unable_to_read_quotes
-    plugin_author_nick = ":amitchellbullard"
-    channel_owner_nick = ":bphogan"
-    default_quote = "Whether you are designing systems or individual modules, never forget to use the simplest thing that can possibly work. - Robert C. Martin"
-    quote_file_not_found_message = "Attention #{plugin_author_nick} and #{channel_owner_nick}: Unable to find the quotes file. Displaying default quote..."
-    default_message = "#{quote_file_not_found_message}\n#{default_quote}"
-
-    quote_file_does_not_exists
+    quote_file_does_not_exist
     bot = make_bot(Quotes)
     message = make_message(bot, "!quote")
-    default = get_replies(message).first
-    default = default.strip.squeeze(' ') unless default.nil?
+    output = get_replies(message).first
     quote_file_exists
 
-    assert_equal default, default_message
+    assert output.include?("Attention :amitchellbullard")
   end
 
-  def test_default_message_is_displayed_when_unable_to_write_quotes
-    plugin_author_nick = ":amitchellbullard"
-    channel_owner_nick = ":bphogan"
-    default_quote = "Whether you are designing systems or individual modules, never forget to use the simplest thing that can possibly work. - Robert C. Martin"
-    quote_file_not_found_message = "Attention #{plugin_author_nick} and #{channel_owner_nick}: Unable to find the quotes file. Displaying default quote..."
-    default_message = "#{quote_file_not_found_message}\n#{default_quote}"
-
-    quote_file_does_not_exists
+  def test_default_message_is_displayed_when_unable_to_write_quotesquote_file_does_not_exists
+    quote_file_does_not_exist
     bot = make_bot(Quotes)
     message = make_message(bot, "!quote The Dude abides - Jeffery Lebowski.")
-    default = get_replies(message).first
-    default = default.strip.squeeze(' ') unless default.nil?
+    output = get_replies(message).first
     quote_file_exists
 
-    assert_equal default, default_message
+    assert output.include?("Attention :amitchellbullard")
   end
 
   def test_all_quotes_are_valid

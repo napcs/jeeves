@@ -8,7 +8,14 @@ class Quotes
 
   def run_quotes(m, message = nil)
     quote_source = QuoteSource.new(message)
-    QuoteDisplay.output(m, quote_source.quote)
+    output(m, quote_source.quote)
+  end
+
+  private
+
+  def output(m, quote)
+    output = quote.nil? || quote.empty? ? "Quote added." : quote
+    m.reply output
   end
 end
 
@@ -45,16 +52,5 @@ class QuoteSource
 
   def quote_is_invalid(quote)
     quote.nil? || quote.empty? || quote.length < ACCEPTABLE_QUOTE_LENGTH || !quote.include?(QUOTE_ATTRIBUTION_FORMAT)
-  end
-end
-
-class QuoteDisplay
-  class << self
-
-    def output(m, quote)
-      output = quote.nil? || quote.empty? ? "Quote added." : quote
-      m.reply output
-    end
-
   end
 end
