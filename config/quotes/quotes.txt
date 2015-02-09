@@ -31,7 +31,7 @@ The definition I use for pattern is an idea that has been useful in one practica
 When you feel the need to write a comment, first try to refactor the code so that any comment becomes superfluous. - Martin Fowler
 Wheel reinvention is a constant problem for software engineers. It is not that we like doing things over and over. It is just that sometimes when you are designing systems it is hard to realize that the circular friction reduction device with a central axis that you have just built is, in fact, a wheel. - Russ Olsen
 Whenever you put in a feature before you really need it, you are guilty of programming while stupid; if you wait until you really need the thing, you are likely to have a better understanding of what you need to do and how you should go about doing it. - Russ Olsen
-If you're good at the debugger it means you spent a lot of time debugging. I don't want you to be good at the debugger. ― Robert C. Martin
+If you're good at the debugger it means you spent a lot of time debugging. I don't want you to be good at the debugger. - Robert C. Martin
 What would happen if you allowed a bug to slip through a module, and it cost your company $10,000? The nonprofessional would shrug his shoulders, say “stuff happens,” and start writing the next module. The professional would write the company a check for $10,000! - Robert C. Martin
 So if you want to go fast, if you want to get done quickly, if you want your code to be easy to write, make it easy to read. - Robert C. Martin
 A long descriptive name is better than a long descriptive comment. - Robert C. Martin
