@@ -19,7 +19,7 @@ class QuoteSource
 
   ACCEPTABLE_QUOTE_LENGTH = 25
   QUOTE_ATTRIBUTION_FORMAT = " - "
-  CHANNEL_OWNER_NICK = ":owner"
+  CHANNEL_OWNER_NICK = ":bphogan"
   PLUGIN_AUTHOR_NICK = ":amitchellbullard"
   QUOTES_FILE = "config/quotes/quotes.txt"
   DEFAULT_QUOTE = "Whether you are designing systems or individual modules, never forget to use the simplest thing that can possibly work. - Robert C. Martin"
