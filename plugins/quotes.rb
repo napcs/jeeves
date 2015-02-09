@@ -7,9 +7,7 @@ class Quotes
   match /quote(.*)/, method: :run_quotes
 
   def run_quotes(m, message = nil)
-    puts "add_quote (m, #{message})"
     quote_source = QuoteSource.new(message)
-    puts "quote_source.quote = #{quote_source.quote})"
     QuoteDisplay.output(m, quote_source.quote)
   end
 end
