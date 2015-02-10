@@ -1,13 +1,14 @@
 class IpFetcher
+
   require 'json'
   require 'open-uri'
 
-  def self.fetch_info(ipAddress)
+  def fetch_info(ipAddress)
     url = "http://www.telize.com/geoip/#{ipAddress}"
     begin
       raw_data = open(url).read
       ip_info = JSON.parse(raw_data)
-      output = IpInfo.new(ip_info) 
+      output = InfoParser.new(ip_info) 
     rescue SocketError => e 
       output = "Socket error #{e.message}"
     rescue OpenURI::HTTPError => e
@@ -20,7 +21,7 @@ class IpFetcher
 end
 
 
-class IpInfo
+class InfoParser
   attr_accessor :longitude, :latitude, 
     :ip, :area_code, :continent_code,
     :timezone, :isp, :country, :country_code4
@@ -38,10 +39,14 @@ class IpInfo
   end
     
   def to_s
-    "Longitude: #{@longitude}, Latitude: #{@latitude}, Ip: #{@ip}, Area Code: #{@area_code}, Continent: #{@continent_code}, Timezone: #{@timezone}, ISP: #{@isp}, Country: #{@country} #{@country_code4}"
+    "Longitude: #{@longitude}, Latitude: #{@latitude}, Ip: #{@ip}," + 
+    "Area Code: #{@area_code}, Continent: #{@continent_code}," +
+    "Timezone: #{@timezone}, ISP: #{@isp}," +
+    "Country: #{@country} #{@country_code4}"
   end
 end
     
+
 class IpLookup
 
   $help_messages << "!ip_lookup <ip address>  :displays information about IP"
@@ -51,10 +56,6 @@ class IpLookup
   match /ip_lookup (.+)/, method: :fetch_info
 
   def fetch_info(m,ipAddress)
-    m.reply IpFetcher.fetch_info(ipAddress).to_s
+    m.reply IpFetcher.new.fetch_info(ipAddress)
   end
 end
-
-
-     
-
