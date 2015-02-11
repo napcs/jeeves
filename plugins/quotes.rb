@@ -8,19 +8,19 @@ class Quotes
 
   QUOTES_FILE_PATH = "config/quotes/quotes.txt"
   QUOTE_FILE_ERROR = "amitchellbullard: Unable to load the quotes file."
-  ACCEPTABLE_QUOTE_LENGTH = 25
-  QUOTE_ATTRIBUTION_FORMAT = " - "
 
-  def run_quotes_plugin(m, message = nil)
-    return QUOTE_FILE_ERROR unless File.exists?(QUOTES_FILE_PATH)
-    message = regularize_whitespace(message)
-    output = is_invalid_quote(message) ? get_random_quote : add_quote(message)
-    output(m, output)
+  def run_quotes_plugin(m, message)
+    reply = File.exists?(QUOTES_FILE_PATH) ? get_reply( regularize_whitespace(message) ) : QUOTE_FILE_ERROR
+    output(m, reply)
   end
 
   private
 
-  def get_random_quote
+  def get_reply(message)
+    is_invalid_quote(message) ? random_quote : add_quote(message)
+  end
+
+  def random_quote
     IO.readlines(QUOTES_FILE_PATH).shuffle.first
   end
 
@@ -30,7 +30,7 @@ class Quotes
   end
 
   def is_invalid_quote(quote)
-    quote.nil? || quote.empty? || quote.length < ACCEPTABLE_QUOTE_LENGTH || !quote.include?(QUOTE_ATTRIBUTION_FORMAT)
+    quote.nil? || quote.empty? || quote.length < 25 || !quote.include?(" - ")
   end
 
   def regularize_whitespace(quote)
