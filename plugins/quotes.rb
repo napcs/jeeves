@@ -22,14 +22,10 @@ end
 class QuoteSource
   attr_reader :quote
 
+  QUOTES_FILE = "config/quotes/quotes.txt"
+  QUOTE_FILE_ERROR = "amitchellbullard: Unable to load the quotes file."
   ACCEPTABLE_QUOTE_LENGTH = 25
   QUOTE_ATTRIBUTION_FORMAT = " - "
-  CHANNEL_OWNER_NICK = ":bphogan"
-  PLUGIN_AUTHOR_NICK = ":amitchellbullard"
-  QUOTES_FILE = "config/quotes/quotes.txt"
-  DEFAULT_QUOTE = "Whether you are designing systems or individual modules, never forget to use the simplest thing that can possibly work. - Robert C. Martin"
-  QUOTE_FILE_NOT_FOUND_MESSAGE = "Attention #{PLUGIN_AUTHOR_NICK} and #{CHANNEL_OWNER_NICK}: Unable to find the quotes file. Displaying default quote..."
-  DEFAULT_MESSAGE = "#{QUOTE_FILE_NOT_FOUND_MESSAGE}\n#{DEFAULT_QUOTE}"
 
   def initialize(quote)
     quote = regularize_whitespace(quote)
@@ -39,11 +35,12 @@ class QuoteSource
   private
 
   def random_quote
-    File.exists?(QUOTES_FILE) ? IO.readlines(QUOTES_FILE).shuffle.first : DEFAULT_MESSAGE
+    return QUOTE_FILE_ERROR unless File.exists?(QUOTES_FILE)
+    IO.readlines(QUOTES_FILE).shuffle.first
   end
 
   def add_quote(quote)
-    file = File.exists?(QUOTES_FILE) ? File.open(QUOTES_FILE, "a") {|file| file.puts quote} : DEFAULT_MESSAGE
+    File.open(QUOTES_FILE, "a") {|file| file.puts quote}
   end
 
   def regularize_whitespace(quote)
