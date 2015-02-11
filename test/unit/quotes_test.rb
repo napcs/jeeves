@@ -40,24 +40,24 @@ class QuotesTest < MiniTest::Test
     assert_equal "Quote added.", replies.first
   end
 
-  def test_default_message_is_displayed_when_unable_to_read_quotes
+  def test_error_message_is_displayed_when_unable_to_read_quotes
     quote_file_does_not_exist
     bot = make_bot(Quotes)
     message = make_message(bot, "!quote")
     output = get_replies(message).first
     quote_file_exists
 
-    assert output.include?("Attention :amitchellbullard")
+    assert output.include?("amitchellbullard: Unable to load the quotes file.")
   end
 
-  def test_default_message_is_displayed_when_unable_to_write_quotesquote_file_does_not_exists
+  def test_error_message_is_displayed_when_unable_to_write_quotes_file
     quote_file_does_not_exist
     bot = make_bot(Quotes)
     message = make_message(bot, "!quote The Dude abides - Jeffery Lebowski.")
     output = get_replies(message).first
     quote_file_exists
 
-    assert output.include?("Attention :amitchellbullard")
+    assert output.include?("amitchellbullard: Unable to load the quotes file.")
   end
 
   def test_all_quotes_are_valid
@@ -67,4 +67,3 @@ class QuotesTest < MiniTest::Test
   end
 
 end
-
