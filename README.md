@@ -46,6 +46,7 @@ this to build your own new plugin.
 * rimshot: Link to rimshot sound.
 * ruby_sandbox: Lets you run some Ruby code and have Jeeves evaluate it.
 * room: video and screen sharing with Room.co
+* quotes: Get a random programming quote or add one of your own.
 
 ## Making a plugin
 
