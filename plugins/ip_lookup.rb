@@ -3,18 +3,24 @@ class IpFetcher
   require 'json'
   require 'open-uri'
 
-  def fetch_info(ipAddress)
-    url = "http://www.telize.com/geoip/#{ipAddress}"
+  attr_accessor :ip_address
+
+  def initialize(ip_address)
+    @ip_address = ip_address
+  end
+
+  def fetch_info
+    url = "http://www.telize.com/geoip/#{ip_address}"
     begin
       raw_data = open(url).read
       ip_info = JSON.parse(raw_data)
       output = InfoParser.new(ip_info) 
     rescue SocketError => e 
-      output = "Socket error #{e.message}"
+      output = "Socket error"
     rescue OpenURI::HTTPError => e
-      output = "Argument Error #{e.message}"
+      output = "HTTP Error(Is the IP Address formatted properly?)"
     rescue URI::InvalidURIError => e
-      output = "Argument Error #{e.message}"
+      output = "Invalid URI Error"
     end
     output
   end
@@ -45,7 +51,6 @@ class InfoParser
     "Country: #{@country} #{@country_code4}"
   end
 end
-    
 
 class IpLookup
 
@@ -55,7 +60,7 @@ class IpLookup
 
   match /ip_lookup (.+)/, method: :fetch_info
 
-  def fetch_info(m,ipAddress)
-    m.reply IpFetcher.new.fetch_info(ipAddress)
+  def fetch_info(m,ip_address)
+    m.reply IpFetcher.new(ip_address).fetch_info
   end
 end
