@@ -7,7 +7,7 @@ class Quotes
   match /quote(.*)/, method: :run_quotes_plugin
 
   QUOTES_FILE_PATH = "config/quotes/quotes.txt"
-  QUOTE_FILE_ERROR = "amitchellbullard: Unable to load the quotes file."
+  QUOTE_FILE_ERROR = "Unable to load the quotes file."
 
   def run_quotes_plugin(m, message)
     reply = File.exists?(QUOTES_FILE_PATH) ? get_reply( regularize_whitespace(message) ) : QUOTE_FILE_ERROR
