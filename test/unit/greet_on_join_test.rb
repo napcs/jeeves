@@ -19,6 +19,8 @@ class GreetOnJoinTest < MiniTest::Test
     # works
     assert replies.first.include?("test: Welcome")
 
+    # todo - figure out how to test joining within 12 hours.
+
   end
 
 end
