@@ -41,7 +41,7 @@ class MemeGenerator
   end
 
   def meme_shut_up(message, _ignore)
-    generate_meme(message, "Shut Up And Take My Money", "SHUT UP AND", "TAKE MY MONEY!")
+    generate_meme(message, "Shut Up And Take My Money Fry", "SHUT UP AND", "TAKE MY MONEY!")
   end
 
   def meme_i_dont_always(message, line1, line2)
