@@ -38,8 +38,8 @@ class Codepad
 
   def private_pad(message, user)
     url = Pad.new(bot.nick).url
-    message.user.send "Here's the Codepad URL you requested: #{url}"
-    User(user).send("#{message.user} wants to collaborate with you privately. Visit #{url}") unless message.user == user
+    message.user.send "#{message.user}: Here's the Codepad URL you requested: #{url}"
+    User(user).send("#{user}: #{message.user} wants to collaborate with you privately. Visit #{url}") unless message.user == user
   end
 
 end
