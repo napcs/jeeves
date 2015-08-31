@@ -47,7 +47,7 @@ class QuotesTest < MiniTest::Test
     output = get_replies(message).first
     quote_file_exists
 
-    assert output.include?("amitchellbullard: Unable to load the quotes file.")
+    assert output.include?("Unable to load the quotes file.")
   end
 
   def test_error_message_is_displayed_when_unable_to_write_quotes_file
@@ -57,7 +57,7 @@ class QuotesTest < MiniTest::Test
     output = get_replies(message).first
     quote_file_exists
 
-    assert output.include?("amitchellbullard: Unable to load the quotes file.")
+    assert output.include?("Unable to load the quotes file.")
   end
 
   def test_all_quotes_are_valid
