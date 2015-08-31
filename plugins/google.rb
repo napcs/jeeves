@@ -14,8 +14,8 @@ class Google
     res = Nokogiri::HTML(open(url)).at("h3.r")
 
     title = res.text
-    link = res.at('a')["href"].scan(/url\?q=(?<url>.*?)&sa=U&ei=/).join
-    desc = res.at("./following::div").children[1].text
+    link = res.at('a')["href"].scan(/url\?q=(?<url>.*?)&sa/).join
+    desc = res.at("./following::div").children[1].text.gsub("\n", "")
     CGI.unescape_html "#{title} - #{desc} (#{link})"
   rescue
     "No results found"

@@ -35,7 +35,7 @@ this to build your own new plugin.
 * Heartbeat:  Tests a URL to see if it's up
 * Google: From Cinch's default examples - searches Google and returns result.
 * seen: From Cinch's defaults, tells you the last time someone was seen.
-* repeater: Pings everyone - watches for a message starting with `all:` 
+* repeater: Pings everyone - watches for a message starting with `all:`
 * weather: Gets the weather based on zip or city name
 * countdown: Sets a global timer and lets Jeeves tell you how much time is left till that deadline
 * js_sandbox: Lets you run some JS code and have Jeeves eval it. Uses Node.
@@ -46,12 +46,13 @@ this to build your own new plugin.
 * rimshot: Link to rimshot sound.
 * ruby_sandbox: Lets you run some Ruby code and have Jeeves evaluate it.
 * room: video and screen sharing with Room.co
+* codepad: Request a shared workspace
 * quotes: Get a random programming quote or add one of your own.
 
 ## Making a plugin
 
 Plugins are just Ruby classes that include the Cinch::Plugin module. A plugin
-has a `match` directive and an `execute()` method. Everything else is just 
+has a `match` directive and an `execute()` method. Everything else is just
 Ruby code.
 
     match /hello/   # This calls the execute() method whenever the bot sees !hello
@@ -72,7 +73,7 @@ Make a plugin and contribute it!
 ## Contributing
 
 Fork, send pull request. Keep commits small and organized. Don't add features
-to `jeeves.rb` please. Use plugins for that. 
+to `jeeves.rb` please. Use plugins for that.
 
 ### The Hello plugin
 
@@ -83,7 +84,7 @@ See `plugins/hello.rb` for how to write a basic plugin.
 See `test/unit/hello_test.rb` for how to test a plugin. Plugins use the
 Cinch-test library.
 
-Use 
+Use
 
     rake test
 
