@@ -2,35 +2,23 @@ require 'json'
 
 # code for interacting with the data store to get and put the karma points
 class KarmaStore
-  attr_accessor :karma_points
+  attr_writer :karma_points
+  attr_reader :key, :redis
 
   def initialize(redis, key)
-    @key = key
-    if redis
-      @redis = redis
-      get
-    else
-      raise "Please configure Redis per instructions."
-    end
+    @key   = key
+    @redis = redis
+
+    raise "Please configure Redis per instructions." unless @redis
   end
 
-  def get
-    data = $redis.get(@key)
-    if data
-      @karma_points = JSON.parse(data)
-    else
-      @karma_points = []
-    end
-  end
-
-  def save
-    @redis.set @key, @karma_points.to_json   # post to Redis
-    @redis.bgsave # TODO: can't seem to get the data to persist after a restart any other way.
+  def karma_points
+    @karma_points ||= parsed_read_store
   end
 
   # Retrieves record for a user. If user doesn't exist yet, create a 0 points entry for the user.
   def get_record_for(nick)
-    @karma_points.select{|record| record['nick'] == nick}[0] || (@karma_points << {'nick' => nick, 'points' => 0}).last
+    karma_points.detect { |record| record['nick'] == nick } || (karma_points << { 'nick' => nick, 'points' => 0 }).last
   end
 
   def add_points(nick, points)
@@ -41,6 +29,23 @@ class KarmaStore
   def reduce_points(nick, points)
     get_record_for(nick)['points'] -= points
     save
+  end
+
+  def save
+    @redis.set key, karma_points.to_json   # post to Redis
+    redis.bgsave # TODO: can't seem to get the data to persist after a restart any other way.
+  end
+
+  private
+
+  def parsed_read_store
+    return [] unless raw_data = read_store
+
+    JSON.parse(raw_data)
+  end
+
+  def read_store
+    redis.get(key)
   end
 
 end
@@ -71,67 +76,73 @@ class Karma
 
   def initialize(bot)
     super
-    # bot.nick doesn't seem to have a value here. Get nick from config.
-    nick = $settings["settings"]["nick"]
-
     # new instance of karma store
     @karma_store = KarmaStore.new($redis, "#{nick}_karma")
   end
 
+  def nick
+    # bot.nick doesn't seem to have a value here. Get nick from config.
+    $settings["settings"]["nick"]
+  end
+
   def userlist(m)
-    m.channel.users.collect{|u| u.first.nick}
+    m.channel.users.collect { |u| u.first.nick }
   end
 
   def valid_message(m, nick)
-    result = false
-    if m.channel
-      if userlist(m).include? nick
-        result = true
-      else
-        m.reply "User not here"
-      end
-    else
-      m.reply "Do that in the channel please"
-    end
-    result
+    return warn(m, 'Do that in the channel please') unless m.channel
+    return warn(m, 'User not here') unless user_online?(m, nick)
+
+    return true
+  end
+
+  def user_online?(m, nick)
+    userlist(m).include?(nick)
+  end
+
+  def warn(m, msg)
+    m.reply(msg) and return false
   end
 
   def props(m, nick)
-    if valid_message(m, nick)
+    return unless valid_message(m, nick)
 
-      if nick == m.user.nick
-        @karma_store.reduce_points(m.user.nick, 50)
-        m.reply "#{m.user.nick} loses 50 points for trying to stuff the ballot box."
-      else
-        @karma_store.add_points(nick, 10)
-        m.reply witty_reply :to => nick, :points => 10
-      end
+    if nick == m.user.nick
+      karma_store.reduce_points(m.user.nick, 50)
+      m.reply "#{m.user.nick} loses 50 points for trying to stuff the ballot box."
+    else
+      karma_store.add_points(nick, 10)
+      m.reply witty_reply :to => nick, :points => 10
     end
   end
 
   def element(m, nick)
-    if valid_message(m, nick)
-      @karma_store.reduce_points(nick, 20)
-      m.reply "#{nick} is out of their element. -20 points."
-    end
+    return unless valid_message(m, nick)
+
+    karma_store.reduce_points(nick, 20)
+    m.reply "#{nick} is out of their element. -20 points."
   end
 
   def grammar(m, nick)
-    if valid_message(m, nick)
-      @karma_store.reduce_points(nick, 10)
-      m.reply "#{nick} fails at grammar. -10 points."
-    end
+    return unless valid_message(m, nick)
+
+    karma_store.reduce_points(nick, 10)
+    m.reply "#{nick} fails at grammar. -10 points."
   end
 
   def points(m, nick)
-    points = @karma_store.get_record_for(nick)['points']
-    m.reply "#{nick} has #{points} points"
+    points = karma_store.get_record_for(nick)['points']
+    m.reply point_message(nick, points)
   end
 
   def scoreboard(m)
-    @karma_store.karma_points.sort_by{ |x| x['points']}.reverse.each do |row|
-      m.reply "#{row['nick']} has #{row['points']} points"
+    karma_store.karma_points.sort_by { |x| -x['points'] }.each do |row|
+      m.reply point_message(*row.values_at('nick', 'points'))
     end
+  end
+
+  def point_message(nick, points)
+    "#{nick} has #{points} points"
   end
 
   def witty_reply(options = {})
