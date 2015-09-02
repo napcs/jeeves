@@ -3,13 +3,13 @@ require 'json'
 # code for interacting with the data store to get and put the karma points
 class KarmaStore
   attr_writer :karma_points
-  attr_reader :key, :redis
+  attr_reader :key
 
-  def initialize(redis, key)
-    @key   = key
-    @redis = redis
+  def initialize(data_store, key)
+    @key        = key
+    @data_store = data_store
 
-    raise "Please configure Redis per instructions." unless @redis
+    raise "Please configure the data_store per instructions." unless data_store
   end
 
   def karma_points
@@ -32,11 +32,13 @@ class KarmaStore
   end
 
   def save
-    @redis.set key, karma_points.to_json   # post to Redis
-    redis.bgsave # TODO: can't seem to get the data to persist after a restart any other way.
+    data_store.set key, karma_points.to_json   # post to the data_store
+    data_store.bgsave # TODO: can't seem to get the data to persist after a restart any other way.
   end
 
   private
+
+  attr_reader :data_store
 
   def parsed_read_store
     return [] unless raw_data = read_store
@@ -45,13 +47,18 @@ class KarmaStore
   end
 
   def read_store
-    redis.get(key)
+    data_store.get(key)
   end
 
 end
 
 class Karma
   include Cinch::Plugin
+  private
+
+  attr_reader :karma_store
+
+  public
 
   PROPS_PHRASES = [
     "<nick> is apparently awesome.  +<points> points.",
@@ -69,20 +76,20 @@ class Karma
   match /grammar (.+)/,               method: :grammar
 
   $help_messages << "!points <nick>   Shows score for a given user"
-  match /points (.+)/,                     method: :points
+  match /points (.+)/,                method: :points
 
   $help_messages << "!scoreboard      Shows all scores"
-  match /scoreboard$/,                 method: :scoreboard
+  match /scoreboard$/,                method: :scoreboard
 
   def initialize(bot)
     super
     # new instance of karma store
-    @karma_store = KarmaStore.new($redis, "#{nick}_karma")
+    @karma_store = KarmaStore.new($redis, plugin_key)
   end
 
-  def nick
+  def plugin_key
     # bot.nick doesn't seem to have a value here. Get nick from config.
-    $settings["settings"]["nick"]
+    "#{$settings["settings"]["nick"]}_karma"
   end
 
   def userlist(m)
@@ -149,5 +156,4 @@ class Karma
     phrases = PROPS_PHRASES
     phrases[rand(phrases.length)].gsub("<nick>", options[:to]).gsub("<points>", options[:points].to_s)
   end
-
 end
