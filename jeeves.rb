@@ -30,7 +30,7 @@ end
 
 
 @irc = Cinch::Bot.new do
-  
+
   configure do |c|
     c.server = $settings["settings"]["server"]
     c.nick = $settings["settings"]["nick"]
@@ -41,6 +41,14 @@ end
       #:password => $settings['settings']['nickserv_pass'],
       #:type => :nickserv
     #}
+  end
+
+
+  # need redis?
+  if $settings["settings"]["redis_host"]
+    require 'redis'
+    $redis = Redis.new(:host => $settings["settings"]["redis_host"],
+                       :port => $settings["settings"]["redis_port"] || 6380)
   end
 
   on :message, /^!help/ do |m|
