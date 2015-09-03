@@ -4,6 +4,9 @@ gem 'cinch', '~> 2.0'
 gem 'nokogiri'
 gem 'tzinfo'
 gem 'sicuro'
+gem 'redis'
+
+gem 'foreman'
 
 gem 'minitest', '~> 5.4.3'
 gem 'rake', '~> 10.4.0'
