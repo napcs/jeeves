@@ -6,7 +6,8 @@ Simple chat bot for my class chatroom using Cinch.
 
 Clone this repo.
 
-Create `bot.yml`.
+Create the file `bot.yml` to configure the bot and the plugins you want to use.
+Here's an example:
 
 ~~~
 settings:
@@ -20,13 +21,45 @@ settings:
     - "heartbeat"
 ~~~
 
-Then use
+Then run the command
 
 `bundle`
 
-Then launch it with
+to install dependencies.
 
-`bundle exec ruby jeeves.rb`
+Then use
+
+```
+bundle exec ruby jeeves.rb
+```
+
+to start the bot. The bot will connect to the network you specified with the nick you
+specified and join the channel.
+
+Press `Ctrl+C` to stop the bot.
+
+### Using Plugins Backed By Redis (Karma plugin, etc)
+
+Install Redis locally.
+
+Add configuration to the `bot.yml` file.
+
+```
+settings:
+  redis_host: localhost
+  redis_port: 6380
+  ... other stuff
+```
+
+Use Foreman to manage launching the bot and the Redis server.
+
+```
+foreman start
+```
+
+to launch the bot and Redis-server processes.
+
+Press `Ctrl+C` to stop everything.
 
 ## Plugins
 
@@ -47,6 +80,7 @@ this to build your own new plugin.
 * ruby_sandbox: Lets you run some Ruby code and have Jeeves evaluate it.
 * room: video and screen sharing with Room.co
 * codepad: Request a shared workspace
+* karma: a simple points system that allows you to give or revoke karma points from people. Uses Redis to store scoreboard.
 
 ## Making a plugin
 
