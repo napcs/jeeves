@@ -2,7 +2,6 @@ require 'json'
 
 # code for interacting with the data store to get and put the karma points
 class KarmaStore
-  attr_writer :karma_points
   attr_reader :key
 
   def initialize(data_store, key)
@@ -61,18 +60,18 @@ class Karma
   public
 
   PROPS_PHRASES = [
-    "<nick> is apparently awesome.  +<points> points.",
-    "<nick> earns <points> for Gryffindor!",
-    "Whoohoo! <nick> earns 10 points!"
+    "<nick> is apparently awesome.  +<points> karma points.",
+    "<nick> earns <points> karma points for Gryffindor!",
+    "Whoohoo! <nick> earns 10 karma points!"
   ]
 
-  $help_messages << "!props <nick>    Give props"
+  $help_messages << "!props <nick>    Give props - award 10 karma points"
   match /props (.+)/,                 method: :props
 
-  $help_messages << "!element <nick>  Out of element"
+  $help_messages << "!element <nick>  Out of element - deducts 20 karma points"
   match /element (.+)/,               method: :element
 
-  $help_messages << "!grammar <nick>  Grammar violation"
+  $help_messages << "!grammar <nick>  Grammar violation - deducts 10 karma points"
   match /grammar (.+)/,               method: :grammar
 
   $help_messages << "!points <nick>   Shows score for a given user"
@@ -116,7 +115,7 @@ class Karma
 
     if nick == m.user.nick
       karma_store.reduce_points(m.user.nick, 50)
-      m.reply "#{m.user.nick} loses 50 points for trying to stuff the ballot box."
+      m.reply "#{m.user.nick} loses 50 karma points for trying to stuff the ballot box."
     else
       karma_store.add_points(nick, 10)
       m.reply witty_reply :to => nick, :points => 10
@@ -127,14 +126,14 @@ class Karma
     return unless valid_message(m, nick)
 
     karma_store.reduce_points(nick, 20)
-    m.reply "#{nick} is out of their element. -20 points."
+    m.reply "#{nick} is out of their element. -20 karma points."
   end
 
   def grammar(m, nick)
     return unless valid_message(m, nick)
 
     karma_store.reduce_points(nick, 10)
-    m.reply "#{nick} fails at grammar. -10 points."
+    m.reply "#{nick} fails at grammar. -10 karma points."
   end
 
   def points(m, nick)
@@ -149,7 +148,7 @@ class Karma
   end
 
   def point_message(nick, points)
-    "#{nick} has #{points} points"
+    "#{nick} has #{points} karma points"
   end
 
   def witty_reply(options = {})
