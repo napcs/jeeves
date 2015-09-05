@@ -19,7 +19,7 @@ class MemeGeneratorTest < MiniTest::Test
     bot = make_bot(MemeGenerator)
     message = make_message(bot, '!shut up and take my money')
     replies = get_replies(message)
-    assert_equal "http://apimeme.com/meme?meme=Shut+Up+And+Take+My+Money&top=SHUT+UP+AND&bottom=TAKE+MY+MONEY%21", replies.first
+    assert_equal "http://apimeme.com/meme?meme=Shut+Up+And+Take+My+Money+Fry&top=SHUT+UP+AND&bottom=TAKE+MY+MONEY%21", replies.first
   end
 
   def test_this_is
