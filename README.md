@@ -81,6 +81,7 @@ this to build your own new plugin.
 * room: video and screen sharing with Room.co
 * codepad: Request a shared workspace
 * karma: a simple points system that allows you to give or revoke karma points from people. Uses Redis to store scoreboard.
+* quotes: Get a random programming quote or add one of your own.
 
 ## Making a plugin
 
