@@ -22,6 +22,7 @@ class LanguageMechanics
   match /couldve/i, method: :couldve, use_prefix: false
   match /fuck/i, method: :fuck, use_prefix: false
   match /if i was/i, method: :if_i_was, use_prefix: false
+  match /irregardless/i, method: :irregardless, use_prefix: false
   match /l8r/i, method: :l8r, use_prefix: false
   match /peaked my/i, method: :peaked_my, use_prefix: false
   match /peeked my/i, method: :peeked_my, use_prefix: false
@@ -72,6 +73,10 @@ class LanguageMechanics
 
   def if_i_was(message)
     message.reply("Please use the subjunctive.  The correct way to say this is \"if I were.\"")
+  end
+
+  def irregardless(message)
+    message.reply("\"Irregardless\" is not a word. Please use \"regardless.\"")
   end
 
   def l8r(message)

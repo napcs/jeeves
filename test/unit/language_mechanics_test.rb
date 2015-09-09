@@ -117,6 +117,13 @@ class LanguageMechanicsTest < MiniTest::Test
 
   end
 
+  def test_irregardless
+    bot = make_bot(LanguageMechanics)
+    message = make_message(bot, 'irregardless')
+    replies = get_replies(message)
+    assert_equal "\"Irregardless\" is not a word. Please use \"regardless.\"", replies.first
+  end
+
   def test_l8r
 
     # Create a bot. Pass the class name of your plugin
