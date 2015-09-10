@@ -3,21 +3,21 @@ require "quotes"
 
 class QuotesTest < MiniTest::Test
   def move_test_quotes_in
-    FileUtils.mv("config/quotes/quotes.txt", "config/quotes/test_resources/quotes.txt")
-    FileUtils.mv("config/quotes/test_resources/test_quotes.txt", "config/quotes/quotes.txt")
+    FileUtils.mv("config/quotes/quotes.txt", "test/test_resources/quotes.txt")
+    FileUtils.mv("test/test_resources/test_quotes.txt", "config/quotes/quotes.txt")
   end
 
   def move_test_quotes_out
-    FileUtils.mv("config/quotes/quotes.txt", "config/quotes/test_resources/test_quotes.txt")
-    FileUtils.mv("config/quotes/test_resources/quotes.txt", "config/quotes/quotes.txt")
+    FileUtils.mv("config/quotes/quotes.txt", "test/test_resources/test_quotes.txt")
+    FileUtils.mv("test/test_resources/quotes.txt", "config/quotes/quotes.txt")
   end
 
   def quote_file_does_not_exist
-    FileUtils.mv("config/quotes/quotes.txt", "config/quotes/test_resources/quotes.txt")
+    FileUtils.mv("config/quotes/quotes.txt", "test/test_resources/quotes.txt")
   end
 
   def quote_file_exists
-    FileUtils.mv("config/quotes/test_resources/quotes.txt", "config/quotes/quotes.txt")
+    FileUtils.mv("test/test_resources/quotes.txt", "config/quotes/quotes.txt")
   end
 
   def test_quote_is_returned
