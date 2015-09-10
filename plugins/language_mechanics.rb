@@ -16,7 +16,11 @@ class LanguageMechanics
   # look for poor grammar
   # i means
   # This uses a regular expression.
-  #match /alot/i, method: :alot, use_prefix: false
+  match /",/, method: :comma_outside_double_quote, use_prefix: false
+  match /"!/, method: :exclamation_point_outside_double_quote, use_prefix: false
+  match /"./, method: :period_outside_double_quote, use_prefix: false
+  match /"\?/, method: :question_mark_outside_double_quote, use_prefix: false
+  match /alot/i, method: :alot, use_prefix: false
   match /ass/i, method: :ass, use_prefix: false
   match /coulda/i, method: :coulda, use_prefix: false
   match /couldve/i, method: :couldve, use_prefix: false
@@ -35,25 +39,25 @@ class LanguageMechanics
   match /who's is/i, method: :whos_is, use_prefix: false
   match /wtf/i, method: :wtf, use_prefix: false
 
-  #def comma_outside_double_quote(message)
-  #  message.reply("It is correct to keep the punctuation inside of the quotations, not outside of them.")
-  #end
+  def comma_outside_double_quote(message)
+    message.reply("It is correct to keep the punctuation inside of the quotations, not outside of them.")
+  end
 
-  #def exclamation_point_outside_double_quote(message)
-  #  message.reply("It is correct to keep the punctuation inside of the quotations, not outside of them.")
-  #end
+  def exclamation_point_outside_double_quote(message)
+    message.reply("It is correct to keep the punctuation inside of the quotations, not outside of them.")
+  end
 
-  #def period_outside_double_quote(message)
-  #  message.reply("It is correct to keep the punctuation inside of the quotations, not outside of them.")
-  #end
+  def period_outside_double_quote(message)
+    message.reply("It is correct to keep the punctuation inside of the quotations, not outside of them.")
+  end
 
-  #def question_mark_outside_double_quote(message)
-  #  message.reply("It is correct to keep the punctuation inside of the quotations, not outside of them.")
-  #end
+  def question_mark_outside_double_quote(message)
+    message.reply("It is correct to keep the punctuation inside of the quotations, not outside of them.")
+  end
 
-  #def alot(message)
-  #  message.reply("To refer to many of something please use \"a lot.\"  To refer to setting aside money please use \"allot.\"")
-  #end
+  def alot(message)
+    message.reply("To refer to many of something please use \"a lot.\"  To refer to setting aside money please use \"allot.\"")
+  end
 
   def ass(message)
     message.reply("Unless you're referring to a donkey, please use a more courteous word. Options include \"arse\" and \"bum.\"")

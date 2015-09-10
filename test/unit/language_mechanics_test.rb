@@ -9,45 +9,40 @@ class LanguageMechanicsTest < MiniTest::Test
 
   # Define your first test case.
   
-  #def test_comma_outside_of_quotation
-  #  bot = make_bot(LanguageMechanics)
-  #  message = make_message(bot, '",')
-  #  replies = get_replies(message)
-  #  assert_equal "It is correct to keep the punctuation inside of the quotations, not outside of them.", replies.first
-  #end
+  def test_comma_outside_of_quotation
+    bot = make_bot(LanguageMechanics)
+    message = make_message(bot, '",')
+    replies = get_replies(message)
+    assert_equal "It is correct to keep the punctuation inside of the quotations, not outside of them.", replies.first
+  end
 
-  #def test_exclamation_point_outside_of_quotation
-  #  bot = make_bot(LanguageMechanics)
-  #  message = make_message(bot, '"!')
-  #  replies = get_replies(message)
-  #  assert_equal "It is correct to keep the punctuation inside of the quotations, not outside of them.", replies.first
-  #end
+  def test_exclamation_point_outside_of_quotation
+    bot = make_bot(LanguageMechanics)
+    message = make_message(bot, '"!')
+    replies = get_replies(message)
+    assert_equal "It is correct to keep the punctuation inside of the quotations, not outside of them.", replies.first
+  end
 
-  #def test_period_outside_of_quotation
-  #  bot = make_bot(LanguageMechanics)
-  #  message = make_message(bot, '".')
-  #  replies = get_replies(message)
-  #  assert_equal "It is correct to keep the punctuation inside of the quotations, not outside of them.", replies.first
-  #end
+  def test_period_outside_of_quotation
+   bot = make_bot(LanguageMechanics)
+   message = make_message(bot, '".')
+   replies = get_replies(message)
+   assert_equal "It is correct to keep the punctuation inside of the quotations, not outside of them.", replies.first
+  end
 
-  #def test_question_mark_outside_of_quotation
-  #  bot = make_bot(LanguageMechanics)
-  #  message = make_message(bot, '"?')
-  #  replies = get_replies(message)
-  #  assert_equal "It is correct to keep the punctuation inside of the quotations, not outside of them.", replies.first
-  #end
+  def test_question_mark_outside_of_quotation
+   bot = make_bot(LanguageMechanics)
+   message = make_message(bot, '"?')
+   replies = get_replies(message)
+   assert_equal "It is correct to keep the punctuation inside of the quotations, not outside of them.", replies.first
+  end
 
-  #def test_alot
-
-  #  bot = make_bot(LanguageMechanics)
-
-  #  message = make_message(bot, 'alot')
-
-  #  replies = get_replies(message)
-
-  #  assert_equal "To refer to many of something please use \"a lot.\"  To refer to setting aside money please use \"allot.\"", replies first
-
-  #end
+  def test_alot
+    bot = make_bot(LanguageMechanics)
+    message = make_message(bot, 'alot')
+    replies = get_replies(message)
+    assert_equal "To refer to many of something please use \"a lot.\"  To refer to setting aside money please use \"allot.\"", replies.first
+  end
 
   def test_ass
 
