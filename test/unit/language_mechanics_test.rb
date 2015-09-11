@@ -45,25 +45,66 @@ class LanguageMechanicsTest < MiniTest::Test
   end
 
   def test_ass
-
     bot = make_bot(LanguageMechanics)
     message = make_message(bot, 'ass')
     replies = get_replies(message)
     assert_equal "Unless you're referring to a donkey, please use a more courteous word. Options include \"arse\" and \"bum.\"", replies.first
   end
 
-  def test_class
+  def test_ass_in_assassin
+    bot = make_bot(LanguageMechanics)
+    message = make_message(bot, 'assassin')
+    replies = get_replies(message)
+    assert_equal nil, replies.first
+  end
+
+  def test_ass_in_asshat
+    bot = make_bot(LanguageMechanics)
+    message = make_message(bot, 'asshat')
+    replies = get_replies(message)
+    assert_equal nil, replies.first
+  end
+
+  def test_ass_in_assface
+    bot = make_bot(LanguageMechanics)
+    message = make_message(bot, 'assface')
+    replies = get_replies(message)
+    assert_equal nil, replies.first
+  end
+
+  def test_ass_in_class
     bot = make_bot(LanguageMechanics)
     message = make_message(bot, 'class')
     replies = get_replies(message)
     assert_equal nil, replies.first
   end
 
-  def test_classes
+  def test_ass_in_classes
     bot = make_bot(LanguageMechanics)
     message = make_message(bot, 'classes')
     replies = get_replies(message)
     assert_equal nil, replies.first
+  end
+
+  def test_ass_in_sentence_beginning
+    bot = make_bot(LanguageMechanics)
+    message = make_message(bot, 'Ass hole')
+    replies = get_replies(message)
+    assert_equal "Unless you're referring to a donkey, please use a more courteous word. Options include \"arse\" and \"bum.\"", replies.first
+  end
+
+  def test_ass_in_sentence_ending
+    bot = make_bot(LanguageMechanics)
+    message = make_message(bot, 'You are an ass')
+    replies = get_replies(message)
+    assert_equal "Unless you're referring to a donkey, please use a more courteous word. Options include \"arse\" and \"bum.\"", replies.first
+  end
+
+  def test_ass_in_sentence_middle
+    bot = make_bot(LanguageMechanics)
+    message = make_message(bot, 'You are an ass hole')
+    replies = get_replies(message)
+    assert_equal "Unless you're referring to a donkey, please use a more courteous word. Options include \"arse\" and \"bum.\"", replies.first
   end
 
   def test_coulda
