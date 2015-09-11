@@ -16,10 +16,10 @@ class LanguageMechanics
   # look for poor grammar
   # i means
   # This uses a regular expression.
-  match /",/, method: :comma_outside_double_quote, use_prefix: false
-  match /"!/, method: :exclamation_point_outside_double_quote, use_prefix: false
-  match /"./, method: :period_outside_double_quote, use_prefix: false
-  match /"\?/, method: :question_mark_outside_double_quote, use_prefix: false
+  match /\b",(\s)?/, method: :comma_outside_double_quote, use_prefix: false
+  match /\b"!($)?/, method: :exclamation_point_outside_double_quote, use_prefix: false
+  match /\b".($)?/, method: :period_outside_double_quote, use_prefix: false
+  match /\b"\?($)?/, method: :question_mark_outside_double_quote, use_prefix: false
   match /\balot\b/i, method: :alot, use_prefix: false
   match /\bass\b/i, method: :ass, use_prefix: false
   match /coulda/i, method: :coulda, use_prefix: false
@@ -39,10 +39,11 @@ class LanguageMechanics
   match /who's is/i, method: :whos_is, use_prefix: false
   match /wtf/i, method: :wtf, use_prefix: false
 
+  #This outputs twice for some reason
   def comma_outside_double_quote(message)
     message.reply("It is correct to keep the punctuation inside of the quotations, not outside of them.")
   end
-
+  #This outputs twice for some reason
   def exclamation_point_outside_double_quote(message)
     message.reply("It is correct to keep the punctuation inside of the quotations, not outside of them.")
   end
@@ -50,7 +51,7 @@ class LanguageMechanics
   def period_outside_double_quote(message)
     message.reply("It is correct to keep the punctuation inside of the quotations, not outside of them.")
   end
-
+  #This outputs twice for some reason
   def question_mark_outside_double_quote(message)
     message.reply("It is correct to keep the punctuation inside of the quotations, not outside of them.")
   end

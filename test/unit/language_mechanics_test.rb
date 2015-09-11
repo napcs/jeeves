@@ -9,32 +9,67 @@ class LanguageMechanicsTest < MiniTest::Test
 
   # Define your first test case.
   
+  def test_comma_inside_of_quotation
+    bot = make_bot(LanguageMechanics)
+    message = make_message(bot, '"hello,"')
+    replies = get_replies(message)
+    assert_equal nil, replies.first
+  end
+
   def test_comma_outside_of_quotation
     bot = make_bot(LanguageMechanics)
-    message = make_message(bot, '",')
+    message = make_message(bot, '"hello",')
     replies = get_replies(message)
     assert_equal "It is correct to keep the punctuation inside of the quotations, not outside of them.", replies.first
+  end
+
+  def test_exclamation_point_inside_of_quotation
+    bot = make_bot(LanguageMechanics)
+    message = make_message(bot, '"hello!"')
+    replies = get_replies(message)
+    assert_equal nil, replies.first
   end
 
   def test_exclamation_point_outside_of_quotation
     bot = make_bot(LanguageMechanics)
-    message = make_message(bot, '"!')
+    message = make_message(bot, '"hello"!')
     replies = get_replies(message)
     assert_equal "It is correct to keep the punctuation inside of the quotations, not outside of them.", replies.first
   end
 
+  def test_period_inside_of_quotation
+    bot = make_bot(LanguageMechanics)
+    message = make_message(bot, '"hello."')
+    replies = get_replies(message)
+    assert_equal nil, replies.first
+  end
+
   def test_period_outside_of_quotation
    bot = make_bot(LanguageMechanics)
-   message = make_message(bot, '".')
+   message = make_message(bot, '"hello".')
    replies = get_replies(message)
    assert_equal "It is correct to keep the punctuation inside of the quotations, not outside of them.", replies.first
   end
 
+  def test_question_mark_inside_of_quotation
+    bot = make_bot(LanguageMechanics)
+    message = make_message(bot, '"hello?"')
+    replies = get_replies(message)
+    assert_equal nil, replies.first
+  end
+
   def test_question_mark_outside_of_quotation
    bot = make_bot(LanguageMechanics)
-   message = make_message(bot, '"?')
+   message = make_message(bot, '"hello"?')
    replies = get_replies(message)
    assert_equal "It is correct to keep the punctuation inside of the quotations, not outside of them.", replies.first
+  end
+
+  def test_quotation_no_punctuation
+    bot = make_bot(LanguageMechanics)
+    message = make_message(bot, '"hello"')
+    replies = get_replies(message)
+    assert_equal nil, replies.first
   end
 
   def test_alot
