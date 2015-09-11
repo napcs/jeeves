@@ -20,11 +20,11 @@ class LanguageMechanics
   match /"!/, method: :exclamation_point_outside_double_quote, use_prefix: false
   match /"./, method: :period_outside_double_quote, use_prefix: false
   match /"\?/, method: :question_mark_outside_double_quote, use_prefix: false
-  match /alot/i, method: :alot, use_prefix: false
-  match /ass/i, method: :ass, use_prefix: false
+  match /\Aalot\z/i, method: :alot, use_prefix: false
+  match /\Aass\z/i, method: :ass, use_prefix: false
   match /coulda/i, method: :coulda, use_prefix: false
   match /couldve/i, method: :couldve, use_prefix: false
-  match /fuck/i, method: :fuck, use_prefix: false
+  match /\Afuck\z/i, method: :fuck, use_prefix: false
   match /if i was/i, method: :if_i_was, use_prefix: false
   match /irregardless/i, method: :irregardless, use_prefix: false
   match /l8r/i, method: :l8r, use_prefix: false
@@ -35,7 +35,7 @@ class LanguageMechanics
   match /sneak peak/i, method: :sneakpeak, use_prefix: false
   match /sneek peak/i, method: :sneekpeak, use_prefix: false
   match /sneek peek/i, method: :sneekpeek, use_prefix: false
-  match /shit/i, method: :shit, use_prefix: false
+  match /\Ashit\z/i, method: :shit, use_prefix: false
   match /who's is/i, method: :whos_is, use_prefix: false
   match /wtf/i, method: :wtf, use_prefix: false
 
