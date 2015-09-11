@@ -52,6 +52,20 @@ class LanguageMechanicsTest < MiniTest::Test
     assert_equal "Unless you're referring to a donkey, please use a more courteous word. Options include \"arse\" and \"bum.\"", replies.first
   end
 
+  def test_class
+    bot = make_bot(LanguageMechanics)
+    message = make_message(bot, 'class')
+    replies = get_replies(message)
+    assert_equal nil, replies.first
+  end
+
+  def test_classes
+    bot = make_bot(LanguageMechanics)
+    message = make_message(bot, 'classes')
+    replies = get_replies(message)
+    assert_equal nil, replies.first
+  end
+
   def test_coulda
 
     # Create a bot. Pass the class name of your plugin
