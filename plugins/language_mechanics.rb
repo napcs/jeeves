@@ -16,15 +16,15 @@ class LanguageMechanics
   # look for poor grammar
   # i means
   # This uses a regular expression.
-  match /",/, method: :comma_outside_double_quote, use_prefix: false
-  match /"!/, method: :exclamation_point_outside_double_quote, use_prefix: false
-  match /"./, method: :period_outside_double_quote, use_prefix: false
-  match /"\?/, method: :question_mark_outside_double_quote, use_prefix: false
-  match /alot/i, method: :alot, use_prefix: false
-  match /ass/i, method: :ass, use_prefix: false
+  match /\b",(\s)?/, method: :comma_outside_double_quote, use_prefix: false
+  match /\b"!($)?/, method: :exclamation_point_outside_double_quote, use_prefix: false
+  match /\b".($)?/, method: :period_outside_double_quote, use_prefix: false
+  match /\b"\?($)?/, method: :question_mark_outside_double_quote, use_prefix: false
+  match /\balot\b/i, method: :alot, use_prefix: false
+  match /\bass\b/i, method: :ass, use_prefix: false
   match /coulda/i, method: :coulda, use_prefix: false
   match /couldve/i, method: :couldve, use_prefix: false
-  match /fuck/i, method: :fuck, use_prefix: false
+  match /\bfuck\b/i, method: :fuck, use_prefix: false
   match /if i was/i, method: :if_i_was, use_prefix: false
   match /irregardless/i, method: :irregardless, use_prefix: false
   match /l8r/i, method: :l8r, use_prefix: false
@@ -35,14 +35,15 @@ class LanguageMechanics
   match /sneak peak/i, method: :sneakpeak, use_prefix: false
   match /sneek peak/i, method: :sneekpeak, use_prefix: false
   match /sneek peek/i, method: :sneekpeek, use_prefix: false
-  match /shit/i, method: :shit, use_prefix: false
+  match /\bshit\b/i, method: :shit, use_prefix: false
   match /who's is/i, method: :whos_is, use_prefix: false
   match /wtf/i, method: :wtf, use_prefix: false
 
+  #This outputs twice for some reason
   def comma_outside_double_quote(message)
     message.reply("It is correct to keep the punctuation inside of the quotations, not outside of them.")
   end
-
+  #This outputs twice for some reason
   def exclamation_point_outside_double_quote(message)
     message.reply("It is correct to keep the punctuation inside of the quotations, not outside of them.")
   end
@@ -50,7 +51,7 @@ class LanguageMechanics
   def period_outside_double_quote(message)
     message.reply("It is correct to keep the punctuation inside of the quotations, not outside of them.")
   end
-
+  #This outputs twice for some reason
   def question_mark_outside_double_quote(message)
     message.reply("It is correct to keep the punctuation inside of the quotations, not outside of them.")
   end
