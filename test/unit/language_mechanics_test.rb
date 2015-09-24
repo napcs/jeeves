@@ -23,6 +23,41 @@ class LanguageMechanicsTest < MiniTest::Test
     assert_equal "It is correct to keep the punctuation inside of the quotations, not outside of them.", replies.first
   end
 
+  def test_comma_outside_of_quotation_with_space_ending_the_quote
+   bot = make_bot(LanguageMechanics)
+   message = make_message(bot, '"hello ",')
+   replies = get_replies(message)
+   assert_equal "It is correct to keep the punctuation inside of the quotations, not outside of them.", replies.first
+  end
+
+  def test_ellipses_inside_of_quotation_begin
+    bot = make_bot(LanguageMechanics)
+    message = make_message(bot, '"...ok"')
+    replies = get_replies(message)
+    assert_equal nil, replies.first
+  end
+
+  def test_ellipses_inside_of_quotation_end
+    bot = make_bot(LanguageMechanics)
+    message = make_message(bot, '"ok..."')
+    replies = get_replies(message)
+    assert_equal nil, replies.first
+  end
+
+  def test_ellipses_outside_of_quotation
+    bot = make_bot(LanguageMechanics)
+    message = make_message(bot, '"ok"...')
+    replies = get_replies(message)
+    assert_equal nil, replies.first
+  end
+
+  def test_ellipses_outside_of_quotation_with_space_between_outside_quotes
+    bot = make_bot(LanguageMechanics)
+    message = make_message(bot, '"ok" ...')
+    replies = get_replies(message)
+    assert_equal nil, replies.first
+  end
+
   def test_exclamation_point_inside_of_quotation
     bot = make_bot(LanguageMechanics)
     message = make_message(bot, '"hello!"')
@@ -35,6 +70,13 @@ class LanguageMechanicsTest < MiniTest::Test
     message = make_message(bot, '"hello"!')
     replies = get_replies(message)
     assert_equal "It is correct to keep the punctuation inside of the quotations, not outside of them.", replies.first
+  end
+
+  def test_exclamation_point_outside_of_quotation_with_space_ending_the_quote
+   bot = make_bot(LanguageMechanics)
+   message = make_message(bot, '"hello "!')
+   replies = get_replies(message)
+   assert_equal "It is correct to keep the punctuation inside of the quotations, not outside of them.", replies.first
   end
 
   def test_period_inside_of_quotation
@@ -51,6 +93,20 @@ class LanguageMechanicsTest < MiniTest::Test
    assert_equal "It is correct to keep the punctuation inside of the quotations, not outside of them.", replies.first
   end
 
+  def test_period_outside_of_quotation_with_space_after_period
+   bot = make_bot(LanguageMechanics)
+   message = make_message(bot, '"hello". ')
+   replies = get_replies(message)
+   assert_equal "It is correct to keep the punctuation inside of the quotations, not outside of them.", replies.first
+  end
+
+  def test_period_outside_of_quotation_with_space_ending_the_quote
+   bot = make_bot(LanguageMechanics)
+   message = make_message(bot, '"hello ".')
+   replies = get_replies(message)
+   assert_equal "It is correct to keep the punctuation inside of the quotations, not outside of them.", replies.first
+  end
+
   def test_question_mark_inside_of_quotation
     bot = make_bot(LanguageMechanics)
     message = make_message(bot, '"hello?"')
@@ -61,6 +117,13 @@ class LanguageMechanicsTest < MiniTest::Test
   def test_question_mark_outside_of_quotation
    bot = make_bot(LanguageMechanics)
    message = make_message(bot, '"hello"?')
+   replies = get_replies(message)
+   assert_equal "It is correct to keep the punctuation inside of the quotations, not outside of them.", replies.first
+  end
+
+  def test_question_mark_outside_of_quotation_with_space_ending_the_quote
+   bot = make_bot(LanguageMechanics)
+   message = make_message(bot, '"hello "?')
    replies = get_replies(message)
    assert_equal "It is correct to keep the punctuation inside of the quotations, not outside of them.", replies.first
   end
