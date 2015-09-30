@@ -5,7 +5,7 @@ class WordFetcher
   require 'json'
   require 'open-uri'
 
-  # Grab the weather data
+  # Grab the word data
   def self.fetch(query)
     word = CGI.escape(query)
     key = $settings["settings"]["wordnik_key"]
@@ -16,7 +16,7 @@ class WordFetcher
       word_data = JSON.parse(raw_data)
       result = WordData.new(word_data)
     rescue Exception => e
-      result = "I don't seem to be able to grab the word for you. #{e.message}"
+      result = "I don't seem to be able to grab the word for you. Please check your spelling and try again. Error: #{e.message}."
     end
     result
   end
@@ -43,7 +43,7 @@ class Dictionary
 
   include Cinch::Plugin
 
-  # watch for !weather in the chat
+  # watch for !define in the chat
   match /define (.+)/
 
   def execute(m, query)
