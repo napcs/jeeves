@@ -82,6 +82,7 @@ this to build your own new plugin.
 * codepad: Request a shared workspace
 * karma: a simple points system that allows you to give or revoke karma points from people. Uses Redis to store scoreboard.
 * quotes: Get a random programming quote or add one of your own.
+* stack_overflow: Query StackOverflow for answers. Returns 3 results based on query.
 
 ## Making a plugin
 
