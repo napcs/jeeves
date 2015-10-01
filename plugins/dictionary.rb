@@ -14,7 +14,7 @@ class WordFetcher
     begin
       raw_data = open(url).read
       word_data = JSON.parse(raw_data)
-      result = WordData.new(word_data)
+      result = WordData.new(word, word_data)
     rescue Exception => e
       result = "I don't seem to be able to grab the word for you. Please check your spelling and try again. Error: #{e.message}."
     end
@@ -25,14 +25,16 @@ end
 
 # represent,  parse, and interpret/present the word data
 class WordData
-  attr_accessor :definition
+  attr_accessor :word, :definition, :speech
 
-  def initialize(word_data)
+  def initialize(word, word_data)
+    self.word = word
+    self.speech = word_data.first["partOfSpeech"]
     self.definition = word_data.first["text"]
   end
   
   def to_s
-    self.definition
+    "#{word} (#{self.speech}): #{self.definition}"
   end
     
 end

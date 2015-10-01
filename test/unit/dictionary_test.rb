@@ -12,7 +12,7 @@ class DictionaryTest < MiniTest::Test
 		bot = make_bot(Dictionary)
     	message = make_message(bot, '!define assassin')
     	replies = get_replies(message)
-    	assert_equal "One who murders by surprise attack, especially one who carries out a plot to kill a prominent person.", replies.first
+    	assert_equal "assassin (noun): One who murders by surprise attack, especially one who carries out a plot to kill a prominent person.", replies.first
 	end
 
 	def test_ninja
@@ -20,7 +20,7 @@ class DictionaryTest < MiniTest::Test
 		bot = make_bot(Dictionary)
     	message = make_message(bot, '!define ninja')
     	replies = get_replies(message)
-    	assert_equal "A member of a class of 14th-century Japanese mercenary agents who were trained in the martial arts and hired for covert operations such as assassination and sabotage.", replies.first
+    	assert_equal "ninja (noun): A member of a class of 14th-century Japanese mercenary agents who were trained in the martial arts and hired for covert operations such as assassination and sabotage.", replies.first
 	end
 
 	def test_tardis
@@ -36,7 +36,7 @@ class DictionaryTest < MiniTest::Test
 		bot = make_bot(Dictionary)
     	message = make_message(bot, '!define tattoo')
     	replies = get_replies(message)
-    	assert_equal "A signal sounded on a drum or bugle to summon soldiers or sailors to their quarters at night.", replies.first
+    	assert_equal "tattoo (noun): A signal sounded on a drum or bugle to summon soldiers or sailors to their quarters at night.", replies.first
 	end
 
 end
