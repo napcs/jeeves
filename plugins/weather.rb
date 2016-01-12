@@ -1,6 +1,6 @@
 # Get the weather data from openweathermap.org.
 class WeatherFetcher
-  
+
   require 'cgi'
   require 'json'
   require 'open-uri'
@@ -8,7 +8,8 @@ class WeatherFetcher
   # Grab the weather data
   def self.fetch(query)
     query = CGI.escape(query)
-    url = "http://api.openweathermap.org/data/2.5/weather?q=#{query}&units=imperial"
+    key = $settings["settings"]["open_weather_key"]
+    url = "http://api.openweathermap.org/data/2.5/weather?q=#{query}&units=imperial&appid=#{key}"
     begin
       raw_data = open(url).read
       weather_data = JSON.parse(raw_data)
@@ -18,12 +19,12 @@ class WeatherFetcher
     end
     result
   end
-  
+
 end
 
 # represent,  parse, and interpret/present the weather data
 class WeatherData
-  attr_accessor :city, :temperature, 
+  attr_accessor :city, :temperature,
     :name, :wind_speed, :wind_degrees,
     :description, :condition, :wind_cardinal
 
@@ -36,7 +37,7 @@ class WeatherData
     self.wind_degrees = weather_data["wind"]["deg"]
     self.wind_cardinal = get_cardinal(self.wind_degrees)
   end
-  
+
   def to_s
     "Current temp in #{self.name} is #{self.temperature} degrees. The wind is blowing #{self.wind_cardinal} at #{self.wind_speed} mps. #{self.condition} - #{self.description}"
   end
@@ -56,17 +57,17 @@ class WeatherData
       when 213.75..236.26 then "SW"
       when 236.25..258.76 then "WSW"
       when 258.75..281.26 then "W"
-      when 281.25..303.76 then "WNW"    
+      when 281.25..303.76 then "WNW"
       when 303.75..326.26 then "NW"
       when 326.25..348.76 then "NNW"
     end
  end
-    
-  
+
+
 end
 # The plugin
 class Weather
-  
+
   $help_messages << "!weather <zipcode or city,state>    : Displays the weather."
 
   include Cinch::Plugin
