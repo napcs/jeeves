@@ -5,6 +5,6 @@ class Rimshot
   match /rimshot$/
 
   def execute(message)
-    message.reply("http://instantrimshot.com/classic/?sound=rimshot?play=true")
+    message.reply("http://instantrimshot.com/classic/?sound=rimshot&play=true")
   end
 end
