@@ -12,7 +12,7 @@ class MemeGeneratorTest < MiniTest::Test
     bot = make_bot(MemeGenerator)
     message = make_message(bot, "!X ALL the ys")
     replies = get_replies(message)
-    assert_equal "http://apimeme.com/meme?meme=X+ALL+THE+Y&top=X&bottom=ALL+the+ys", replies.first
+    assert_equal "http://apimeme.com/meme?meme=X+All+The+Y&top=X&bottom=ALL+the+ys", replies.first
   end
 
   def test_I_dont_always

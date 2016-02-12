@@ -33,7 +33,7 @@ class MemeGenerator
   #match %r{(you are bad) (and you should feel bad!?)}i,             #method: :meme_you_are_bad                                     method: :meme_you_are_bad
 
   def meme_all_the(message, line1, line2)
-    generate_meme(message, "X ALL THE Y", line1, line2)
+    generate_meme(message, "X All The Y", line1, line2)
   end
 
   def meme_i_dont_always(message, line1, line2)
