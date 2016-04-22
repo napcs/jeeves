@@ -20,6 +20,18 @@ class MemeGeneratorTest < MiniTest::Test
     message = make_message(bot, "!I don't always test code, but when I do, it's in production")
     replies = get_replies(message)
     assert_equal "http://apimeme.com/meme?meme=The+Most+Interesting+Man+In+The+World&top=I+don%27t+always+test+code%2C&bottom=but+when+I+do%2C+it%27s+in+production", replies.first
+
+    message = make_message(bot, "!I don't always test code but when I do it's in production")
+    replies = get_replies(message)
+
+    assert_equal "http://apimeme.com/meme?meme=The+Most+Interesting+Man+In+The+World&top=I+don%27t+always+test+code&bottom=but+when+I+do+it%27s+in+production", replies.first
+  end
+
+  def test_bad_time
+    bot = make_bot(MemeGenerator)
+    message = make_message(bot, "!If you add two integers before converting them to numbers, you're going to have a bad time")
+    replies = get_replies(message)
+    assert_equal "http://apimeme.com/meme?meme=Super+Cool+Ski+Instructor&top=If+you+add+two+integers+before+converting+them+to+numbers%2C&bottom=you%27re+going+to+have+a+bad+time", replies.first
   end
 
   def test_not_sure
@@ -47,7 +59,7 @@ class MemeGeneratorTest < MiniTest::Test
     bot = make_bot(MemeGenerator)
     message = make_message(bot, '!THIS IS OS!')
     replies = get_replies(message)
-    assert_equal "http://apimeme.com/meme?meme=Sparta+Leonidas&top=THIS+IS&bottom=THIS+IS+OS%21", replies.first
+    assert_equal "http://apimeme.com/meme?meme=Sparta+Leonidas&top=THIS+IS&bottom=OS%21", replies.first
   end
 
   def test_what_if_i
@@ -78,11 +90,11 @@ class MemeGeneratorTest < MiniTest::Test
     assert_equal "http://apimeme.com/meme?meme=Yo+Dawg+Heard+You&top=Yo+dawg%2C+I+heard+you+like+terminals&bottom=so+I+put+a+terminal+in+your+terminal+so+you+can+terminal+while+you+terminal.", replies.first
   end
 
-  #def test_you_are_bad
-  #  bot = make_bot(MemeGenerator)
-  #  message = make_message(bot, "!You are bad and you should feel bad!")
-  #  replies = get_replies(message)
-  #  assert_equal "http://apimeme.com/meme?meme=You+Should+Feel+Bad+Zoidberg&top=You+are+bad&bottom=and+you+should+feel+bad%21", replies.first
-  #end
+  def test_you_are_bad
+    bot = make_bot(MemeGenerator)
+    message = make_message(bot, "!You are bad and you should feel bad!")
+    replies = get_replies(message)
+    assert_equal "http://apimeme.com/meme?meme=You+Should+Feel+Bad+Zoidberg&top=You+are+bad&bottom=and+you+should+feel+bad%21", replies.first
+  end
 
 end

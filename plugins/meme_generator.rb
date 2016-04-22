@@ -20,17 +20,22 @@ class MemeGenerator
   include Cinch::Plugin
 
   match %r{(.*) (ALL the .*)}i,                                     method: :meme_all_the
-  match %r{(i don'?t always .*) (but when i do,? .*)}i,             method: :meme_i_dont_always
+  match %r{(i don'?’?t always .*) (but when i do,? .*)}i,             method: :meme_i_dont_always
   match %r{(not sure if .*) (or .*)}i,                              method: :meme_not_sure
   match %r{(shut up and take my money!?)}i,                         method: :meme_shut_up
   match %r{(one does not simply) (.*)}i,                            method: :meme_simply
   match %r{(.*)(SUCCESS!?|NAILED IT.*)},                            method: :meme_success
-  match %r{(THIS IS .*!)}i,                                         method: :meme_this_is
+  match %r{(.*),? (you're going to have a bad time.*)},             method: :meme_bad_time
+  match %r{(THIS IS) (.*!)}i,                                       method: :meme_this_is
   match %r{(what if i told you) (.*)}i,                             method: :meme_what_if_i
   match %r{(oh,? .*) (tell me .*)}i,                                method: :meme_wonka
   match %r{(y u no) (.+)}i,                                         method: :meme_y_u_no
   match %r{(yo dawg,? .*) (so I put .*)}i,                          method: :meme_yo_dawg
-  #match %r{(you are bad) (and you should feel bad!?)}i,             #method: :meme_you_are_bad                                     method: :meme_you_are_bad
+  match %r{(you are bad) (and you should feel bad!?)}i,             method: :meme_you_are_bad
+
+  def meme_bad_time(message, line1, line2)
+    generate_meme(message, "Super Cool Ski Instructor", line1, line2)
+  end
 
   def meme_all_the(message, line1, line2)
     generate_meme(message, "X All The Y", line1, line2)
@@ -56,8 +61,8 @@ class MemeGenerator
     generate_meme(message, "Success Kid", line1, line2)
   end
 
-  def meme_this_is(message, text)
-    generate_meme(message, "Sparta Leonidas", "THIS IS", text)
+  def meme_this_is(message, line1, line2)
+    generate_meme(message, "Sparta Leonidas", "THIS IS", line2)
   end
 
   def meme_what_if_i(message, line1, line2)
@@ -76,13 +81,15 @@ class MemeGenerator
     generate_meme(message, "Yo Dawg Heard You", line1, line2)
   end
 
-  #def meme_you_are_bad(message, line1, line2)
-  #  generate_meme(message, "You Should Feel Bad Zoidberg", line1, line2)
-  #end
+  def meme_you_are_bad(message, line1, line2)
+    generate_meme(message, "You Should Feel Bad Zoidberg", line1, line2)
+  end
 
   private
 
     def generate_meme message, id, line1, line2
+      line1.gsub!("’", "'")
+      line2.gsub!("’", "'")
       result = Meme.new(id, line1, line2).url
       message.reply result
     end
