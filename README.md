@@ -63,26 +63,35 @@ Press `Ctrl+C` to stop everything.
 
 ## Plugins
 
+* base_converstion: Convert strings into binary or hexadecimal
+* codepad: Request a shared workspace
+* countdown: Sets a global timer and lets Jeeves tell you how much time is left till that deadline
+* dictionary: Get the definition of a word
+* eightball: A simple magic 8-ball plugin
+* Google: From Cinch's default examples - searches Google and returns result.
+* greet_on_join: Greet users who join the chat
+* hacker_news: Grab top story from HN
+* Heartbeat:  Tests a URL to see if it's up
 * hello:  A simple greeting plugin that demonstrates how a plugin works. Use
 this to build your own new plugin.
-* Heartbeat:  Tests a URL to see if it's up
-* Google: From Cinch's default examples - searches Google and returns result.
-* seen: From Cinch's defaults, tells you the last time someone was seen.
-* repeater: Pings everyone - watches for a message starting with `all:`
-* weather: Gets the weather based on zip or city name
-* countdown: Sets a global timer and lets Jeeves tell you how much time is left till that deadline
-* js_sandbox: Lets you run some JS code and have Jeeves eval it. Uses Node.
 * info: A simple plugin that reads data strings from a file. Useful for quickly pulling up links in chat
-* hacker_news: Grab top story from HN
-* trivia: A simple trivia question plugin
-* eightball: A simple magic 8-ball plugin
-* rimshot: Link to rimshot sound.
-* ruby_sandbox: Lets you run some Ruby code and have Jeeves evaluate it.
-* room: video and screen sharing with Room.co
-* codepad: Request a shared workspace
+* ip_lookup: Display information about IP
+* js_sandbox: Lets you run some JS code and have Jeeves eval it. Uses Node.
 * karma: a simple points system that allows you to give or revoke karma points from people. Uses Redis to store scoreboard.
+* language_mechanics: Grammar bot to correct poor grammar automatically
+* meme_generator: Generate a customized meme
 * quotes: Get a random programming quote or add one of your own.
+* repeater: Pings everyone - watches for a message starting with `all:`
+* rimshot: Link to rimshot sound.
+* room: video and screen sharing with Room.co
+* ruby_sandbox: Lets you run some Ruby code and have Jeeves evaluate it.
+* seen: From Cinch's defaults, tells you the last time someone was seen.
 * stack_overflow: Query StackOverflow for answers. Returns 3 results based on query.
+* store_url: Store URLs from chat, list stored URLs, retrieve URLs
+* trivia: A simple trivia question plugin
+* weather: Gets the weather based on zip or city name
+* word_of_the_day: Displays word of the day with definition
+
 
 ## Making a plugin
 
