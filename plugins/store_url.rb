@@ -23,9 +23,9 @@ class StoreUrl
 
 	def write_file
 		File.open(URL_FILE_PATH, "w") do |f|
-			f << @@url_array.to_yaml
-		end
+		f << @@url_array.to_yaml
 	end
+end
 
 	def store_url(m, url)
 		if @@url_array.include?(url) == false
