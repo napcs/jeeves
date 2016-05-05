@@ -3,7 +3,7 @@ require 'nokogiri'
 require 'cgi'
 
 class SunInfo
-	$help_messages << "!sun_info <country>, <city>	: Display current information about the sun in the USA"
+	$help_messages << "!sun_info <country>, <city>	: Display current information about the sun"
 	
 	include Cinch::Plugin
 	match /sun_info (.*),\s?(.*)/
