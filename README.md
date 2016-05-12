@@ -74,12 +74,14 @@ Press `Ctrl+C` to stop everything.
 * Heartbeat:  Tests a URL to see if it's up
 * hello:  A simple greeting plugin that demonstrates how a plugin works. Use
 this to build your own new plugin.
+* imdb: Get information about a movie, tv show, or video game
 * info: A simple plugin that reads data strings from a file. Useful for quickly pulling up links in chat
 * ip_lookup: Display information about IP
 * js_sandbox: Lets you run some JS code and have Jeeves eval it. Uses Node.
 * karma: a simple points system that allows you to give or revoke karma points from people. Uses Redis to store scoreboard.
 * language_mechanics: Grammar bot to correct poor grammar automatically
 * meme_generator: Generate a customized meme
+* moon_info: Get moon information for the current day
 * quotes: Get a random programming quote or add one of your own.
 * repeater: Pings everyone - watches for a message starting with `all:`
 * rimshot: Link to rimshot sound.
@@ -88,6 +90,7 @@ this to build your own new plugin.
 * seen: From Cinch's defaults, tells you the last time someone was seen.
 * stack_overflow: Query StackOverflow for answers. Returns 3 results based on query.
 * store_url: Store URLs from chat, list stored URLs, retrieve URLs
+* sun_info: Get current day sunrise and sunset information
 * trivia: A simple trivia question plugin
 * weather: Gets the weather based on zip or city name
 * word_of_the_day: Displays word of the day with definition
