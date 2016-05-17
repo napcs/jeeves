@@ -63,7 +63,7 @@ Press `Ctrl+C` to stop everything.
 
 ## Plugins
 
-* base_converstion: Convert strings into binary or hexadecimal
+* base_conversion: Convert strings into binary or hexadecimal
 * codepad: Request a shared workspace
 * countdown: Sets a global timer and lets Jeeves tell you how much time is left till that deadline
 * dictionary: Get the definition of a word
