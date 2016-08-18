@@ -3,7 +3,7 @@ class Expressions
   include Cinch::Plugin
 
   EXPRESSIONS = {
-   shrug: "¯\_(ツ)_/¯",
+   shrug: "¯\\_(ツ)_/¯",
    tableflip: "(╯°□°）╯︵ ┻━┻",
    wut: "ಠ_ಠ",
    yeaaah: "( •_•) ( •_•)>⌐■-■ (⌐■_■)"
