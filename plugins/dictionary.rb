@@ -1,6 +1,6 @@
 # Get the word data from wordnik.com.
 class WordFetcher
-  
+
   require 'cgi'
   require 'json'
   require 'open-uri'
@@ -12,7 +12,7 @@ class WordFetcher
     #http://api.wordnik.com/v4/word.json/ninja/definitions?limit=200&includeRelated=true&useCanonical=false&includeTags=false&api_key={key}
     url = "http://api.wordnik.com/v4/word.json/#{word}/definitions?api_key=#{key}"
     begin
-      raw_data = open(url).read
+      raw_data = URI.open(url).read
       word_data = JSON.parse(raw_data)
       result = WordData.new(word, word_data)
     rescue Exception => e
@@ -20,7 +20,7 @@ class WordFetcher
     end
     result
   end
-  
+
 end
 
 # represent,  parse, and interpret/present the word data
@@ -32,25 +32,14 @@ class WordData
     self.speech = word_data.first["partOfSpeech"]
     self.definition = word_data.first["text"]
   end
-  
+
   def to_s
     "#{word} (#{self.speech}): #{self.definition}"
   end
-    
+
 end
 # The plugin
 class Dictionary
-  
-  $help_messages << "!define <word>    : Displays the word definition."
-
-  include Cinch::Plugin
-
-  # watch for !define in the chat
-  match /define (.+)/
-
-  def execute(m, query)
-    m.reply(fetch(query))
-  end
 
   def fetch(query)
     word = WordFetcher.fetch(query)
@@ -58,3 +47,6 @@ class Dictionary
   end
 
 end
+
+$help_messages << "!define <word>    : Displays the word definition."
+Jeeves.command(:define) { |event, word| Dictionary.new.fetch(word) }

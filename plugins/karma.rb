@@ -1,14 +1,16 @@
 require 'json'
 
+
 # code for interacting with the data store to get and put the karma points
 class KarmaStore
   attr_reader :key
 
   def initialize(data_store, key)
+    raise "Please configure the data_store per instructions." unless data_store
+
     @key        = key
     @data_store = data_store
 
-    raise "Please configure the data_store per instructions." unless data_store
   end
 
   def karma_points
@@ -52,12 +54,6 @@ class KarmaStore
 end
 
 class Karma
-  include Cinch::Plugin
-  private
-
-  attr_reader :karma_store
-
-  public
 
   PROPS_PHRASES = [
     "<nick> is apparently awesome.  +<points> karma points.",
@@ -65,94 +61,126 @@ class Karma
     "Whoohoo! <nick> earns 10 karma points!"
   ]
 
-  $help_messages << "!props <nick>    Give props - award 10 karma points"
-  match /props (.+)/,                 method: :props
+  def valid_message(event, nick, options = {})
+    errors = []
+    errors << 'Do that in the channel please' if event.channel.pm?
+    errors << "User doesn't exist" unless valid_user?(event, nick)
 
-  $help_messages << "!element <nick>  Out of element - deducts 20 karma points"
-  match /element (.+)/,               method: :element
-
-  $help_messages << "!grammar <nick>  Grammar violation - deducts 10 karma points"
-  match /grammar (.+)/,               method: :grammar
-
-  $help_messages << "!points <nick>   Shows score for a given user"
-  match /points (.+)/,                method: :points
-
-  $help_messages << "!scoreboard      Shows all scores"
-  match /scoreboard$/,                method: :scoreboard
-
-  def initialize(bot)
-    super
-    # new instance of karma store
-    @karma_store = KarmaStore.new($redis, plugin_key)
-  end
-
-  def plugin_key
-    # bot.nick doesn't seem to have a value here. Get nick from config.
-    "#{$settings["settings"]["nick"]}_karma"
-  end
-
-  def userlist(m)
-    m.channel.users.collect { |u| u.first.nick }
-  end
-
-  def valid_message(m, nick)
-    return warn(m, 'Do that in the channel please') unless m.channel
-    return warn(m, 'User not here') unless user_online?(m, nick)
-
-    return true
-  end
-
-  def user_online?(m, nick)
-    userlist(m).include?(nick)
-  end
-
-  def warn(m, msg)
-    m.reply(msg) and return false
-  end
-
-  def props(m, nick)
-    return unless valid_message(m, nick)
-
-    if nick == m.user.nick
-      karma_store.reduce_points(m.user.nick, 50)
-      m.reply "#{m.user.nick} loses 50 karma points for trying to stuff the ballot box."
-    else
-      karma_store.add_points(nick, 10)
-      m.reply witty_reply :to => nick, :points => 10
+    if options[:check_restricted]
+      errors << "That command is not allowed in this channel" unless $settings["karma"]["negative_channels"].include? event.channel.name
     end
+
+    errors
   end
 
-  def element(m, nick)
-    return unless valid_message(m, nick)
-
-    karma_store.reduce_points(nick, 20)
-    m.reply "#{nick} is out of their element. -20 karma points."
+  def valid_user?(event, username)
+    !!event.server.members.find{|user| user.username == username}
   end
 
-  def grammar(m, nick)
-    return unless valid_message(m, nick)
-
-    karma_store.reduce_points(nick, 10)
-    m.reply "#{nick} fails at grammar. -10 karma points."
-  end
-
-  def points(m, nick)
-    points = karma_store.get_record_for(nick)['points']
-    m.reply point_message(nick, points)
-  end
-
-  def scoreboard(m)
-    karma_store.karma_points.sort_by { |x| -x['points'] }.each do |row|
-      m.reply point_message(*row.values_at('nick', 'points'))
-    end
+  def props(options)
+    KARMA_STORE.add_points(options[:to], options[:points])
+    phrases = PROPS_PHRASES
+    phrases[rand(phrases.length)].gsub("<nick>", options[:to]).gsub("<points>", options[:points].to_s)
   end
 
   def point_message(nick, points)
     "#{nick} has #{points} karma points"
   end
 
-  def witty_reply(options = {})
-    phrases = PROPS_PHRASES
-    phrases[rand(phrases.length)].gsub("<nick>", options[:to]).gsub("<points>", options[:points].to_s)
+  def element(nick)
+    KARMA_STORE.reduce_points(nick, 20)
+    "#{nick} is out of their element. -20 karma points."
   end
+
+  def grammar(nick)
+    KARMA_STORE.reduce_points(nick, 10)
+    "#{nick} fails at grammar. -10 karma points."
+  end
+
+  def penalty(nick)
+    KARMA_STORE.reduce_points(nick, 50)
+    "#{nick} loses 50 karma points for trying to stuff the ballot box."
+  end
+
+  def points(nick)
+    points = KARMA_STORE.get_record_for(nick)['points']
+    if points
+      point_message(nick, points)
+    else
+      "#{nick} isn't on the scoreboard yet."
+    end
+  end
+
+  def scoreboard
+    KARMA_STORE.karma_points.sort_by { |x| -x['points'] }.collect do |row|
+      point_message(*row.values_at('nick', 'points'))
+    end.join("\n")
+  end
+end
+
+KARMA_STORE = KarmaStore.new($redis, "#{$settings["name"]}_karma")
+
+$help_messages << "!props <nick>    Give props - award 10 karma points"
+Jeeves.command :props do |event, nick|
+  karma = Karma.new
+
+  errors = karma.valid_message(event, nick)
+
+  if errors.any?
+    errors.join("\n")
+  else
+    if nick == event.author.username
+      karma.penalty(event.author.username)
+    else
+      karma.props to: nick, points: 10
+    end
+  end
+end
+
+$help_messages << "!element <nick>  Out of element - deducts 20 karma points"
+Jeeves.command :element do |event, nick|
+  karma = Karma.new
+  errors = karma.valid_message(event, nick, {check_restricted: true} )
+
+  if errors.any?
+    errors.join("\n")
+  else
+    karma.element(nick)
+  end
+end
+
+$help_messages << "!grammar <nick>  Grammar violation - deducts 10 karma points"
+Jeeves.command :grammar do |event, nick|
+
+  karma = Karma.new
+  errors = karma.valid_message(event, nick, {check_restricted: true} )
+
+  if errors.any?
+    errors.join("\n")
+  else
+    karma.grammar(nick)
+  end
+end
+
+$help_messages << "!points <nick>   Shows score for a given user"
+Jeeves.command :points do |event, nick|
+  karma = Karma.new
+  karma.points(nick)
+end
+
+$help_messages << "!scoreboard      Shows all scores"
+Jeeves.command :scoreboard do |event|
+  karma = Karma.new
+  karma.scoreboard
+end
+
+Jeeves.command :users do |event|
+  event.server.members.collect do |u|
+    u.username
+  end.join("\n")
+end
+
+Jeeves.command :valid_user do |event, nick|
+  k = Karma.new
+  k.valid_user? event, nick
 end

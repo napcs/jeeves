@@ -1,9 +1,8 @@
 require 'minitest/autorun'
-
-require 'cinch/test'
 require 'webmock/minitest'
+require 'discordrb'
 
-include Cinch::Test
+Jeeves = Discordrb::Commands::CommandBot.new token:  'test' , prefix: '!'
 
 $help_messages = [];  # mock the help messages
 

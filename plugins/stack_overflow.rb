@@ -5,25 +5,27 @@ class StackOverflow
   require 'open-uri'
   require 'cgi'
 
-  include Cinch::Plugin
 
-  $help_messages << "!sodd <query>:    Stack Overflow query"
-
-  match /sodd (.*)$/, method: :get_answer
-
-  def get_answer(message, query)
+  def get_answer(query)
     query = CGI.escape(query)
-    url  ="https://api.stackexchange.com/2.1/search/advanced?order=desc&sort=votes&site=stackoverflow&q=#{query}"
+    url  ="https://api.stackexchange.com/2.3/search/advanced?order=desc&sort=votes&accepted=True&site=stackoverflow&q=#{query}"
     begin
-      raw_data = open(url).read
+      raw_data = URI.open(url).read
       data = JSON.parse(raw_data)
 
+      message = []
+
       3.times do |i|
-        message.reply "#{data["items"][i]["title"]} - #{data["items"][i]["link"]}"
+        message << "#{data["items"][i]["title"]} - #{data["items"][i]["link"]}"
       end
 
-    rescue Exception => e
-      message.reply "I don't seem to be able to grab an answer for you. #{e.message}"
+      message.join("\n\n")
+
+    rescue Error => e
+      "I don't seem to be able to grab an answer for you. #{e.message}"
     end
   end
 end
+
+$help_messages << '!sodd <query>:    Stack Overflow query'
+Jeeves.command(:sodd) { |event, *query| StackOverflow.new.get_answer(query.join(" ")) }

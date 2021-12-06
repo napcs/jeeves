@@ -5,8 +5,8 @@
 class Pad
   BASE_URL = "https://pad.riseup.net/p/"
 
-  def initialize(prefix)
-    @prefix = prefix
+  def initialize(name)
+    @prefix = name
   end
 
   def url
@@ -17,29 +17,32 @@ class Pad
     def slug
       Digest::SHA1.hexdigest(Time.now.to_s).slice(0,10)
     end
-
 end
 
-class Codepad
+$help_messages << "!codepad:   Create link to a codepad and display link in chat."
 
-  include Cinch::Plugin
+# Display the pad in the main room
+Jeeves.command  :codepad do |event|
+  Pad.new($settings["name"]).url
+end
 
-  $help_messages << "!codepad:   Create link to a codepad and display link in chat."
-  $help_messages << "!codepad for <user>:   Create link to a codepad and send link to user and requester."
-
-  match /codepad$/, method: :public_pad
-  match /codepad for (.+)/, method: :private_pad
-
-  # Display the pad in the main room
-  def public_pad(message)
-    url = Pad.new(bot.nick).url
-    message.reply(url)
+$help_messages << "!codepad_for <user>:   Create link to a codepad and send link to user and requester."
+Jeeves.command(:codepad_for) do |event, username|
+  url = Pad.new($settings["name"]).url
+  user = find_user_by_username(event, username)
+  if user
+    event.user.pm "Hey #{event.user.username}! Here's the Codepad URL you requested: #{url}"
+    user.pm "Hi #{user.username}! #{event.user.username} wants to collaborate with you privately. Visit #{url}"
+  else
+    event.user.pm "I can't find that user on this server."
   end
+  # don't send anything back to the main channel!
+  nil
+end
 
-  def private_pad(message, user)
-    url = Pad.new(bot.nick).url
-    message.user.send "#{message.user}: Here's the Codepad URL you requested: #{url}"
-    User(user).send("#{user}: #{message.user} wants to collaborate with you privately. Visit #{url}") unless message.user == user
+def find_user_by_username(event, username)
+  user = event.server.members.find{|user| user.username == username}
+  if user
+    user[1]   # the 0 index has the id, the 1 index has the User object
   end
-
 end

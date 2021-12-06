@@ -2,10 +2,6 @@
 # Look for horrible grammar used in the chat.
 class LanguageMechanics
 
-  # include the Cinch::Plugin mixin which
-  # adds the behavior for plugins to this plain Ruby object.
-  include Cinch::Plugin
-
   # Array to include memes from meme_generator.rb in responses
   #typos = {
   #  "wtf" => {
@@ -13,34 +9,6 @@ class LanguageMechanics
   #  }
   #}
 
-  # look for poor grammar
-  # i means
-  # This uses a regular expression.
-  match /\b",(\s)?/, method: :comma_outside_double_quote, use_prefix: false
-  match /(\b|\s)?"!(\s|$)?/, method: :exclamation_point_outside_double_quote, use_prefix: false
-  match /\b". (\s|$)?/, method: :period_outside_double_quote_with_space_after_the_period, use_prefix: false
-  match /\b ".(\s|$)?/, method: :period_outside_double_quote_with_space_ending_the_quote, use_prefix: false
-  match /\b".$/, method: :period_outside_double_quote, use_prefix: false
-  match /\b".\s/, method: :period_outside_double_quote, use_prefix: false
-  match /(\b|\s)?"\?(\s|$)?/, method: :question_mark_outside_double_quote, use_prefix: false
-  match /\balot\b/i, method: :alot, use_prefix: false
-  match /\bass\b/i, method: :ass, use_prefix: false
-  match /coulda/i, method: :coulda, use_prefix: false
-  match /couldve/i, method: :couldve, use_prefix: false
-  match /\bfuck\b/i, method: :fuck, use_prefix: false
-  match /if i was/i, method: :if_i_was, use_prefix: false
-  match /irregardless/i, method: :irregardless, use_prefix: false
-  match /l8r/i, method: :l8r, use_prefix: false
-  match /peaked my/i, method: :peaked_my, use_prefix: false
-  match /peeked my/i, method: :peeked_my, use_prefix: false
-  match /shouldve/i, method: :shouldve, use_prefix: false
-  match /shoulda/i, method: :shoulda, use_prefix: false
-  match /sneak peak/i, method: :sneakpeak, use_prefix: false
-  match /sneek peak/i, method: :sneekpeak, use_prefix: false
-  match /sneek peek/i, method: :sneekpeek, use_prefix: false
-  match /\bshit\b/i, method: :shit, use_prefix: false
-  match /who's is/i, method: :whos_is, use_prefix: false
-  match /wtf/i, method: :wtf, use_prefix: false
 
   #This outputs twice for some reason
   def comma_outside_double_quote(message)
@@ -151,3 +119,38 @@ class LanguageMechanics
   end
 
 end
+  # look for poor grammar
+  # This uses a regular expression.
+
+#TODO: rework this to use event watches.
+=begin
+
+  match /\b",(\s)?/, method: :comma_outside_double_quote, use_prefix: false
+  match /(\b|\s)?"!(\s|$)?/, method: :exclamation_point_outside_double_quote, use_prefix: false
+  match /\b". (\s|$)?/, method: :period_outside_double_quote_with_space_after_the_period, use_prefix: false
+  match /\b ".(\s|$)?/, method: :period_outside_double_quote_with_space_ending_the_quote, use_prefix: false
+  match /\b".$/, method: :period_outside_double_quote, use_prefix: false
+  match /\b".\s/, method: :period_outside_double_quote, use_prefix: false
+  match /(\b|\s)?"\?(\s|$)?/, method: :question_mark_outside_double_quote, use_prefix: false
+  match /\balot\b/i, method: :alot, use_prefix: false
+  match /\bass\b/i, method: :ass, use_prefix: false
+  match /coulda/i, method: :coulda, use_prefix: false
+  match /couldve/i, method: :couldve, use_prefix: false
+  match /\bfuck\b/i, method: :fuck, use_prefix: false
+  match /if i was/i, method: :if_i_was, use_prefix: false
+  match /irregardless/i, method: :irregardless, use_prefix: false
+  match /l8r/i, method: :l8r, use_prefix: false
+  match /peaked my/i, method: :peaked_my, use_prefix: false
+  match /peeked my/i, method: :peeked_my, use_prefix: false
+  match /shouldve/i, method: :shouldve, use_prefix: false
+  match /shoulda/i, method: :shoulda, use_prefix: false
+  match /sneak peak/i, method: :sneakpeak, use_prefix: false
+  match /sneek peak/i, method: :sneekpeak, use_prefix: false
+  match /sneek peek/i, method: :sneekpeek, use_prefix: false
+  match /\bshit\b/i, method: :shit, use_prefix: false
+  match /who's is/i, method: :whos_is, use_prefix: false
+  match /wtf/i, method: :wtf, use_prefix: false
+
+=end
+
+

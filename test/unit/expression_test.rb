@@ -4,24 +4,15 @@ require 'expressions'
 class ExpressionsTest < MiniTest::Test
 
   def test_tableflip
-    bot = make_bot(Expressions)
-    message = make_message(bot, '!tableflip')
-    replies = get_replies(message)
-    assert_equal "(╯°□°）╯︵ ┻━┻", replies.first
+    assert_equal "(╯°□°）╯︵ ┻━┻", Expressions.new.tableflip
   end
 
   def test_wut
-    bot = make_bot(Expressions)
-    message = make_message(bot, '!wut')
-    replies = get_replies(message)
-    assert_equal "ಠ_ಠ", replies.first
+    assert_equal "ಠ_ಠ", Expressions.new.wut
   end
 
   def test_yeaaah
-    bot = make_bot(Expressions)
-    message = make_message(bot, '!yeaaah')
-    replies = get_replies(message)
-    assert_equal "( •_•) ( •_•)>⌐■-■ (⌐■_■)", replies.first
+    assert_equal "( •_•) ( •_•)>⌐■-■ (⌐■_■)", Expressions.new.yeaaah
   end
 
 

@@ -1,63 +1,73 @@
 #Store URL
 require 'cgi'
-require 'open-uri'
 require 'yaml'
 
-$help_messages << "!store_url <url>  :  Store a URL."
-$help_messages << "!list_url  :  List of the stored URLs and their IDs."
-$help_messages << "!retrieve_url <url_id>  :  Retrieve a URL by ID."
-$help_messages << "!remove_url <url>  :  Remove a URL using the URL."
+# TODO: move this to the config file.
+URL_FILE_PATH = "config/store_url/store_url.yml"
 
 class StoreUrl
 
-  include Cinch::Plugin
+  attr_reader :path
 
-  URL_FILE_PATH = "config/store_url/store_url.yml"
-
-  match /store_url (.*)/, method: :store_url
-  match /list_url$/, method: :list_url
-  match /retrieve_url (.*)/, method: :retrieve_url
-  match /remove_url (.*)/, method: :remove_url
-
-  @@url_array = []
+  def initialize(path)
+    @path = path
+    @url_array = YAML.load_file(@path)
+    @url_array = [] if @url_array == false
+  end
 
   def write_file
-    File.open(URL_FILE_PATH, "w") do |f|
-      f << @@url_array.to_yaml
+    File.open(self.path, "w") do |f|
+      f << url_array.to_yaml
     end
   end
 
-  def store_url(m, url)
-    if @@url_array.include?(url) == false
-      @@url_array << url
+  def add_url(url)
+    unless url_array.include?(url)
+      url_array << url
       write_file
-      m.reply "URL is stored"
+      "#{url} is stored"
     else
-      m.reply "That URL is already stored"
+      "#{url} is already stored"
     end
   end
 
-  def list_url(m)
-    @@url_array.each_with_index {|url, index| m.reply "#{index} #{url}\n"}
+  def list_url
+    url_array.collect.with_index {|url, index| "#{index} #{url}\n"}.join("\n")
   end
 
-  def retrieve_url(m, url_id)
-    m.reply "#{@@url_array[url_id.to_i]}"
+  def retrieve_url(url_id)
+    "#{url_array[url_id.to_i]}"
   end
 
   # Remove URL by full URL, not the index, to prevent typos removing the wrong URL
-  def remove_url(m, url)
-    if @@url_array.include?(url) == true
-      @@url_array.delete(url)
-      m.reply "The URL has been removed"
+  def remove_url(url)
+    if url_array.include?(url) == true
+      url_array.delete(url)
+      'The URL has been removed'
     else
-      m.reply "That URL does not exist"
+      'That URL does not exist'
     end
   end
 
-  def initialize(bot)
-    super
-    @@url_array = YAML.load(File.read(URL_FILE_PATH))
+  private
+
+  def url_array
+    @url_array
   end
 
 end
+
+
+
+$help_messages << '!add_url <url>  :  Store a URL.'
+$help_messages << '!list_url  :  List of the stored URLs and their IDs.'
+$help_messages << '!retrieve_url <url_id>  :  Retrieve a URL by ID.'
+$help_messages << '!remove_url <url>  :  Remove a URL using the URL.'
+
+urls = StoreUrl.new(URL_FILE_PATH)
+
+Jeeves.command(:add_url) { |_event, url| urls.add_url(url) }
+Jeeves.command(:list_url) { urls.list_url }
+Jeeves.command(:retrieve_url) { |_event, query| urls.retrieve_url(query) }
+Jeeves.command(:remove_url) { |_event, query| urls.remove_url(query) }
+

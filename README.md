@@ -10,15 +10,11 @@ Create the file `bot.yml` to configure the bot and the plugins you want to use.
 Here's an example:
 
 ~~~
-settings:
-  server: chat.freenode.net
-  nick: a_cool_bot_name
-  channel: "#some_channel"
-  plugins:
-    - "repeater"
-    - "seen"
-    - "google"
-    - "heartbeat"
+discord_token: YOUR_TOKEN
+name: a_cool_bot_name
+plugins:
+  - "google"
+  - "heartbeat"
 ~~~
 
 Then run the command
@@ -45,7 +41,7 @@ Install Redis locally.
 Add configuration to the `bot.yml` file.
 
 ```
-settings:
+redis:
   redis_host: localhost
   redis_port: 6380
   ... other stuff
@@ -63,34 +59,24 @@ Press `Ctrl+C` to stop everything.
 
 ## Plugins
 
-* base_conversion: Convert strings into binary or hexadecimal
-* blackjack: Play a game of blackjack
 * codepad: Request a shared workspace
-* countdown: Sets a global timer and lets Jeeves tell you how much time is left till that deadline
 * dictionary: Get the definition of a word
+* debug: a plugin that's helpful in debugging messages.
+* digitalocean: Search DigitalOcean tutorials.
 * eightball: A simple magic 8-ball plugin
 * Google: From Cinch's default examples - searches Google and returns result.
-* greet_on_join: Greet users who join the chat
 * hacker_news: Grab top story from HN
 * Heartbeat:  Tests a URL to see if it's up
 * hello:  A simple greeting plugin that demonstrates how a plugin works. Use
 this to build your own new plugin.
-* imdb: Get information about a movie, tv show, or video game
 * info: A simple plugin that reads data strings from a file. Useful for quickly pulling up links in chat
 * ip_lookup: Display information about IP
-* js_sandbox: Lets you run some JS code and have Jeeves eval it. Uses Node.
 * karma: a simple points system that allows you to give or revoke karma points from people. Uses Redis to store scoreboard.
-* language_mechanics: Grammar bot to correct poor grammar automatically
 * lmgtfy: When someone is unable to Google, you can do it for that person.
 * meme_generator: Generate a customized meme
-* moon_info: Get moon information for the current day
 * quotes: Get a random programming quote or add one of your own.
-* repeater: Pings everyone - watches for a message starting with `all:`
 * rimshot: Link to rimshot sound.
 * room: video and screen sharing with Room.co
-* ruby_sandbox: Lets you run some Ruby code and have Jeeves evaluate it.
-* seen: From Cinch's defaults, tells you the last time someone was seen.
-* simp_qotd: Provide Simpsons quote of the day with an image from @SimpsonsQOTD on Twitter.
 * stack_overflow: Query StackOverflow for answers. Returns 3 results based on query.
 * store_url: Store URLs from chat, list stored URLs, retrieve URLs
 * sun_info: Get current day sunrise and sunset information
@@ -98,23 +84,54 @@ this to build your own new plugin.
 * weather: Gets the weather based on zip or city name
 * word_of_the_day: Displays word of the day with definition
 
+## Broken plugins
+* base_conversion: Convert strings into binary or hexadecimal
+* blackjack: Play a game of blackjack
+* countdown: Sets a global timer and lets Jeeves tell you how much time is left till that deadline
+* simp_qotd: Provide Simpsons quote of the day with an image from @SimpsonsQOTD on Twitter.
+* moon_info: Get moon information for the current day
+* language_mechanics: Grammar bot to correct poor grammar automatically
+* imdb: Get information about a movie, tv show, or video game
 
 ## Making a plugin
 
-Plugins are just Ruby classes that include the Cinch::Plugin module. A plugin
-has a `match` directive and an `execute()` method. Everything else is just
-Ruby code.
+Plugins are just files that include calls to `Jeeves.command` to define commands. 
 
-    match /hello/   # This calls the execute() method whenever the bot sees !hello
+Here's an example:
 
-    # this is called from the matcher.
-    # message.reply sends a message to the channel that the message
-    # originated from.
-    # message.user gets the user that sent the message.
-    # message.user.nick gets the nick of the user that sent the message.
-    def execute(message)
-      message.reply("Hello #{message.user.nick}
-    end
+```
+# The Hello plugin
+# Shows how a basic plugin works.
+#
+# Define a standard class and put your logic in it.
+class Hello
+
+  def say(name)
+    "Hi there, #{name}!"
+  end
+end
+
+
+# Append a new message to the array of messages.
+$help_messages << "!hello:   Make Jeeves greet you."
+
+
+# look for commands that start with "!hello"
+# This will run the "execute" method and pass
+# it the chat message object.
+Jeeves.command :hello do |event|
+  # event.user.username gets the username of the person who sent the
+  # original message, so Jeeves greets you.
+  Hello.new.say(event.user.username)
+end
+
+
+# Now look for commands that start with !greetings and use the name provided.
+Jeeves.command :greetings do |event, username|
+  Hello.new.say(username)
+end
+```
+
 
 
 See the `hello` plugin for more details, or look at the other plugins to get ideas.

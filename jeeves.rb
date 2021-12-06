@@ -1,12 +1,6 @@
 require 'rubygems'
-require 'cinch'
+require 'discordrb'
 require 'yaml'
-
-begin
-  $settings = YAML.load(File.read("bot.yml"))
-rescue
-  puts "create bot.yml and populate it with values. See the readme file!"
-end
 
 # This method is taken from rails core
 # (didn't want to load the entire lib for one method)
@@ -22,38 +16,39 @@ def constantize(camel_cased_word)
   constant
 end
 
+
+begin
+  $settings = YAML.load(File.read("bot.yml"))
+rescue
+  puts "create bot.yml and populate it with values. See the readme file!"
+end
+
+Jeeves = Discordrb::Commands::CommandBot.new token:  $settings['discord_token'] , prefix: '!'
+
+# need redis?
+if $settings["redis"]["redis_host"]
+require 'redis'
+
+$redis = Redis.new(:host => $settings["redis"]["redis_host"],
+                    :port => $settings["redis"]["redis_port"] || 6380)
+
+end
+
+# hold those help messages
 $help_messages = []
 
-$settings["settings"]["plugins"].each do |plugin|
+
+# load those plugins
+$settings["plugins"].each do |plugin|
   require "./plugins/#{plugin}"
 end
 
 
-@irc = Cinch::Bot.new do
-
-  configure do |c|
-    c.server = $settings["settings"]["server"]
-    c.nick = $settings["settings"]["nick"]
-    c.channels = [$settings["settings"]["channel"]]
-    c.plugins.plugins = $settings["settings"]["plugins"].map {|plugin| constantize(plugin.split("_").map {|word| word.capitalize}.join(""))}
-    #c.plugins.options[Cinch::Plugins::Identify] = {
-      #:username => $settings['settings']['nick'],
-      #:password => $settings['settings']['nickserv_pass'],
-      #:type => :nickserv
-    #}
-  end
-
-
-  # need redis?
-  if $settings["settings"]["redis_host"]
-    require 'redis'
-    $redis = Redis.new(:host => $settings["settings"]["redis_host"],
-                       :port => $settings["settings"]["redis_port"] || 6380)
-  end
-
-  on :message, /^!help/ do |m|
-    $help_messages.each{|message| m.user.send message }
-  end
-
+# help command
+Jeeves.command :help do |event|
+  message = $help_messages.join("\n")
+  event.user.pm message
+  nil
 end
-@irc.start
+
+Jeeves.run

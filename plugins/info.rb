@@ -11,41 +11,16 @@
 # Use !info help   if you want to see all the keys.
 class Info
 
-  include Cinch::Plugin
-
-  $help_messages << "!info <key> : displays some static content. Try typing just !info"
-
-  match /info$/
-  match /info (.+)/
-
-  def execute(message, query=nil)
-
-    if query
-
-      if data[query]
-        message.reply(data[query])
-      else
-        if query == "reload"
-          refresh_data
-          message.reply("Data refreshed.")
-        elsif query == "help"
-          message.reply display_help
-        else
-          message.reply("I don't know that")
-        end
-      end
-    else
-      message.reply display_help
-    end
-
-  end
-
   def data
-    $data ||= read_from_file
+    @data ||= read_from_file
   end
 
   def refresh_data
-    $data = read_from_file
+    @data = read_from_file
+  end
+
+  def display_help
+    "Choose from #{data.keys.join(", ")}"
   end
 
   private
@@ -55,8 +30,27 @@ class Info
       end
     end
 
-    def display_help
-      "Choose from #{data.keys.join(", ")}"
-    end
+end
 
+$help_messages << "!info <key> : displays some static content. Try typing just !info"
+
+Jeeves.command :info do |event, query|
+  info = Info.new
+  result = if query
+
+            if info.data[query]
+              info.data[query]
+            else
+              if query == "reload"
+                refresh_data
+                "Data refreshed."
+              elsif query == "help"
+                display_help
+              else
+                "I don't know that"
+              end
+            end
+          else
+            info.display_help
+          end
 end

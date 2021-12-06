@@ -1,25 +1,41 @@
-class IpLookup
-
+class IPLookup
   require 'json'
   require 'open-uri'
 
-  include Cinch::Plugin
-
-  $help_messages << "!ip_lookup <ip address>: displays information about IP"
-  
-  match /ip_lookup (.+)/
-
-
   def fetchInfo(ipAddress)
-    url = "http://www.telize.com/geoip/#{ipAddress}"
+    url = "http://ip-api.com/json/#{ipAddress}"
 
     begin
-      raw_data = open(url).read
+      raw_data = URI.open(url).read
       ipInfo = JSON.parse(raw_data)
 
-      output =  "Longitude: #{ipInfo['longitude']}, Latitude: #{ipInfo['latitude']}, Ip: #{ipInfo['ip']}, Area Code: #{ipInfo['area_code']}, Continent: #{ipInfo['continent_code']}, Timezone: #{ipInfo['timezone']}, ISP: #{ipInfo['isp']}, Country: #{ipInfo['country']} #{ipInfo['country_code4']}"
 
-    rescue SocketError => e 
+    # {"status"=>"success",
+    #  "country"=>"United States",
+    #  "countryCode"=>"US",
+    #  "region"=>"VA",
+    #  "regionName"=>"Virginia",
+    #  "city"=>"Ashburn",
+    #  "zip"=>"20149",
+    #  "lat"=>39.03,
+    #  "lon"=>-77.5,
+    #  "timezone"=>"America/New_York",
+    #  "isp"=>"Google LLC",
+    #  "org"=>"Google Public DNS",
+    #  "as"=>"AS15169 Google LLC",
+    #  "query"=>"8.8.8.8"}
+
+      output = "Results for #{ipInfo['query']}:\n"
+      output << "Organization: #{ipInfo['org']}\n"
+      output << "ISP: #{ipInfo['isp']}\n"
+      output << "Latitude: #{ipInfo['lat']}\n"
+      output << "Longitude: #{ipInfo['lon']}\n"
+      output << "ZIP: #{ipInfo['zip']}\n"
+      output << "Region: #{ipInfo['regionName']}\n"
+      output << "Country: #{ipInfo['country']}\n"
+      output << "Timezone: #{ipInfo['timezone']}"
+
+    rescue SocketError => e
       output = "Socket error"
     rescue OpenURI::HTTPError => e
       output = "Argument Error"
@@ -27,10 +43,11 @@ class IpLookup
 
     output
   end
-
-  def execute(m, ipAddress)
-    m.reply(fetchInfo(ipAddress))
-  end
-
-  private :fetchInfo
 end
+
+$help_messages << "!ip_lookup <ip address>: displays information about IP"
+
+Jeeves.command :ip_lookup do |event, ip|
+  IPLookup.new.fetchInfo(ip)
+end
+

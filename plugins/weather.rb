@@ -11,7 +11,7 @@ class WeatherFetcher
     key = $settings["settings"]["open_weather_key"]
     url = "http://api.openweathermap.org/data/2.5/weather?q=#{query}&units=imperial&appid=#{key}"
     begin
-      raw_data = open(url).read
+      raw_data = URI.open(url).read
       weather_data = JSON.parse(raw_data)
       result = WeatherData.new(weather_data)
     rescue Exception => e
@@ -66,25 +66,12 @@ class WeatherData
 
 end
 # The plugin
-class Weather
 
   $help_messages << "!weather <zipcode or city,state>    : Displays the weather."
 
-  include Cinch::Plugin
 
-  # watch for !weather in the chat
-  match /weather (.+)/
-
-  def execute(m, query)
-    m.reply(fetch(query))
-  end
-
-  def fetch(query)
-    weather = WeatherFetcher.fetch(query)
+  Jeeves.command :weather do |event, zip|
+    weather = WeatherFetcher.fetch(zip)
     weather.to_s
   end
-
-end
-
-
 

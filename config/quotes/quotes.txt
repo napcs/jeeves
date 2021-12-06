@@ -1,23 +1,19 @@
-Any sufficiently advanced technology is indistinguishable from magic. - Arthur C. Clarke
-The Linux philosophy is 'Laugh in the face of danger'. Oops. Wrong One. 'Do it yourself'. Yes, that's it. - Linus Torvalds
-Relying on the government to protect your privacy is like asking a peeping tom to install your window blinds. - John Perry Barlow
+If debugging is the process of removing software bugs, then programming must be the process of putting them in. - Edsger Dijkstra
+Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live. - Martin Golding
+Most good programmers do programming not because they expect to get paid or get adulation by the public, but because it is fun to program. - Linus Torvalds
+If builders built buildings the way programmers wrote programs, then the first woodpecker that came along would destroy civilization." - Gerald Weinberg
+One man’s crappy software is another man’s full time job. - Jessica Gaston
+The trouble with programmers is that you can never tell what a programmer is doing until it’s too late. - Seymour Cray
+A computer lets you make more mistakes faster than any other invention in human history, with the possible exceptions of handguns and tequila. - Mitch Ratcliffe
+Good judgement comes from experience, and experience comes from bad judgement. - Fred Brooks
 People who are really serious about software should make their own hardware. - Alan Kay
-Microsoft isn't evil, they just make really crappy operating systems. - Linus Torvalds
 I think complexity is mostly sort of crummy stuff that is there because it's too expensive to change the interface. - Jaron Lanier
 Doing linear scans over an associative array is like trying to club someone to death with a loaded Uzi. - Larry Wall
 Civilization advances by extending the number of important operations which we can perform without thinking of them. - Alfred North Whitehead
-The easiest way to stop piracy is not by putting antipiracy technology to work. It's by giving those people a service that's better than what they're receiving from the pirates. - Gabe Newell
 If you think technology can solve your security problems, then you don't understand the problems and you don't understand the technology. - Bruce Schneier
-That's been one of my mantras - focus and simplicity. Simple can be harder than complex: You have to work hard to get your thinking clean to make it simple. But it's worth it in the end because once you get there, you can move mountains. - Steve Jobs
 Your work is going to fill a large part of your life, and the only way to be truly satisfied is to do what you believe is great work. And the only way to do great work is to love what you do. If you haven't found it yet, keep looking. Don't settle. As with all matters of the heart, you'll know when you find it. - Steve Jobs
 Stay hungry, stay foolish. - Steve Jobs
-You can't just ask customers what they want and then try to give that to them. By the time you get it built, they'll want something new. - Steve Jobs
-Intelligence is the ability to avoid doing work, yet getting the work done. - Linus Torvalds
-I'd much rather have 15 people arguing about something than 15 people splitting into two camps, each side convinced it's right and not talking to the other. - Linus Torvalds
 Most good programmers do programming not because they expect to get paid or get adulation by the public, but because it is fun to program. - Linus Torvalds
-Once you start thinking more about where you want to be than about making the best product, you're screwed. - Linus Torvalds
-When you say 'I wrote a program that crashed Windows,' people just stare at you blankly and say 'Hey, I got those with the system, for free.’ - Linus Torvalds
-Programmers are in the enviable position of not only getting to do what they want to, but because the end result is so important they get paid to do it. There are other professions like that, but not that many. - Linus Torvalds
 It's hardware that makes a machine fast. It's software that makes a fast machine slow. - Craig Bruce
 It's hard enough to find an error in your code when you're looking for it; it's even harder when you've assumed your code is error-free. - Steve McConnell
 Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it. - Brian Kernighan
@@ -31,32 +27,16 @@ The definition I use for pattern is an idea that has been useful in one practica
 When you feel the need to write a comment, first try to refactor the code so that any comment becomes superfluous. - Martin Fowler
 Wheel reinvention is a constant problem for software engineers. It is not that we like doing things over and over. It is just that sometimes when you are designing systems it is hard to realize that the circular friction reduction device with a central axis that you have just built is, in fact, a wheel. - Russ Olsen
 Whenever you put in a feature before you really need it, you are guilty of programming while stupid; if you wait until you really need the thing, you are likely to have a better understanding of what you need to do and how you should go about doing it. - Russ Olsen
-If you're good at the debugger it means you spent a lot of time debugging. I don't want you to be good at the debugger. - Robert C. Martin
-What would happen if you allowed a bug to slip through a module, and it cost your company $10,000? The nonprofessional would shrug his shoulders, say “stuff happens,” and start writing the next module. The professional would write the company a check for $10,000! - Robert C. Martin
-So if you want to go fast, if you want to get done quickly, if you want your code to be easy to write, make it easy to read. - Robert C. Martin
 A long descriptive name is better than a long descriptive comment. - Robert C. Martin
-Every time you write a comment, you should grimace and feel the failure of your ability of expression. - Robert C. Martin
-Redundant comments are just places to collect lies and misinformation. - Robert C. Martin
-When you are working on a problem, you sometimes get so close to it that you can’t see all the options. You miss elegant solutions because the creative part of your mind is suppressed by the intensity of your focus. Sometimes the best way to solve a problem is to go home, eat dinner, watch TV, go to bed, and then wake up the next morning and take a shower. - Robert C. Martin
-Who can justify the expense of a six-lane highway through the middle of a small town that anticipates growth? Who would want such a road through their town? - Robert C. Martin
-The functionality that you create today has a good chance of changing in the next release, but the readability of your code will have a profound effect on all the changes that will ever be made. - Robert C. Martin
 The majority of the cost of a software project is in long-term maintenance. - Robert C. Martin
-Error handling is important, but if it obscures logic, it’s wrong. - Robert C. Martin
-When you see commented-out code, delete it! - Robert C. Martin
-The only way to make the deadline—the only way to go fast—is to keep the code as clean as possible at all times. - Robert C. Martin
-Few practices are as odious as commenting-out code. Don’t do this! - Robert C. Martin
-Try to write tests that force exceptions, and then add behavior to your handler to satisfy your tests. This will cause you to build the transaction scope of the try block first and will help you maintain the transaction nature of that scope. - Robert C. Martin
-It is unit tests that keep our code flexible, maintainable, and reusable. The reason is simple. If you have tests, you do not fear making changes to the code! Without tests every change is a possible bug. - Robert C. Martin
-In an ideal system, we incorporate new features by extending the system, not by making modifications to existing code. - Robert C. Martin
-Whatever else a TODO might be, it is not an excuse to leave bad code in the system. - Robert C. Martin
-First Law You may not write production code until you have written a failing unit test. Second Law You may not write more of a unit test than is sufficient to fail, and not compiling is failing. Third Law You may not write more production code than is sufficient to pass the currently failing test. - Robert C. Martin
-What makes a clean test? Three things. Readability, readability, and readability. - Robert C. Martin
-Don’t Use a Comment When You Can Use a Function or a Variable - Robert C. Martin
-The proper use of comments is to compensate for our failure to express ourself in code. Note that I used the word failure. I meant it. Comments are always failures. - Robert C. Martin
-Any comment that forces you to look in another module for the meaning of that comment has failed to communicate to you and is not worth the bits it consumes. - Robert C. Martin
-Whether you are designing systems or individual modules, never forget to use the simplest thing that can possibly work. - Robert C. Martin
-There was a time, back in the sixties, when commenting-out code might have been useful. But we’ve had good source code control systems for a very long time now. Those systems will remember the code for us. We don’t have to comment it out any more. Just delete the code. We won’t lose it. Promise. - Robert C. Martin
-The ideal numbers of arguments for a function is zero (niladic). Next comes one (monadic), followed closely by two (dyadic). Three arguments (triadic) should be avoided where possible. More than three (polyadic) requires very special justification ‐ and then shouldn't be used anyway. - Robert C. Martin
-The first rule of functions is that they should be small. The second rule of functions is that they should be smaller than that. - Robert C. Martin
-Functions should do one thing. They should do it well. They should do it only. - Robert C. Martin
 Just because something is easy to measure doesn't mean it's important. - David Heinemeier Hansson
+Perfectionism is a self destructive and addictive belief system that fuels this primary thought: If I look perfect, and do everything perfectly, I can avoid or minimise the painful feelings of shame, judgment, and blame. - Brené Brown
+Humans are allergic to change. They love to say, ‘We’ve always done it this way.’ I try to fight that. That’s why I have a clock on my wall that runs counterclockwise. - Grace Hopper
+Nothing in life is to be feared, it is only to be understood. Now is the time to understand more, so that we may fear less. - Marie Curie
+It’s not enough to be aware of the possibilities. You have to believe that your goals are attainable. First, can you see yourself, picture yourself as an engineer? I strongly believe that belief in yourself stems from belief in your role models. - Alicia Ramos
+Life doesn’t always present you with the perfect opportunity at the perfect time. Opportunities come when you least expect them, or when you’re not ready for them… Opportunities, the good ones… are hard to recognize. They’re risky. They challenge you. - Susan Wojcicki
+Love what you do and do what you love. Doing something new and different requires a level of drive and passion that is really hard to fake. When your heart is behind what you are doing, so much is possible. - Tracy Sun
+Novice programmers don’t yet have the skills to write simple code. - Sandi Metz
+Successful (working) but undesigned applications carry the seeds of their own destruction; they are easy to write, but gradually become impossible to change. - Sandi Metz
+We think awful code is written by awful devs. But in reality it's written by reasonable devs in awful circumstances. - Sarah Mei
+

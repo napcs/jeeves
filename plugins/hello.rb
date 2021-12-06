@@ -1,64 +1,37 @@
 # Hello plugin
-# Shows how a basic plugin works. Every Cinch plugin
-# follows this approach.
+# Shows how a basic plugin works.
 #
-# Define a standard class
+# Define a standard class and put your logic in it.
+
 class Hello
 
-  # include the Cinch::Plugin mixin which
-  # adds the behavior for plugins to this plain Ruby object.
-  include Cinch::Plugin
-
-  # Append a new message to the array of messages.
-  $help_messages << "!hello:   Make Jeeves greet you."
-
-
-  # look for commands that start with "!hello"
-  # This will run the "execute" method and pass
-  # it the chat message object.
-  # This uses a regular expression.
-  match /hello$/
-
-  # this looks for commands that start with !greet and have something after them
-  # like "!greet bphogan"
-  # Still sends the command to the
-  match /greetings (.+)/
-
-  # Called when something matches the "match" rule above.
-  # Execute any code you want here.
-  # the message is the message object from the chat. It's a way
-  # to reply or get info about the message that the bot is responding
-  # to, including the user and the channel the message came from.
-  #
-  # The query is anything that was captured after the matcher
-  #
-  # The query may or may not be there. - if the match didn't capture anything
-  # then there will be no query - it'll be nil. If there was a capture, it'll
-  # be in the query variable.
-  #
-  # For example, the !greetings command captures some user input
-  # after the phrase. So its value is in the query. But the !hello command
-  # does not.
-  def execute(message, query=nil)
-
-    # if the query parameter was sent in then this one runs
-    if query
-      # message.reply sends a message to the channel.
-      # query is the captured value from the regular expression
-      # in the matcher.
-      # So, Jeeves greets the person you say.
-      message.reply("Hi there, #{query}!")
-    else
-      # message.user.nick gets the username of the person who sent the
-      # original message.
-      # So Jeeves greets you.
-      message.reply("Hi there, #{message.user.nick}!")
-    end
-
-    # and that's it. The rest is up to you! Use any Ruby code
-    # you want, including other objects, modules, Gems, whatever!
-    # Make an awesome thing!
-
+  def say(name)
+    "Hi there, #{name}!"
   end
 
 end
+
+
+# now define the help message
+# Append a new message to the array of messages.
+$help_messages << "!hello:   Make Jeeves greet you."
+
+# look for commands that start with "!hello"
+# This will run the "execute" method and pass
+# it the chat message object.
+Jeeves.command :hello do |event|
+  # event.user.username gets the username of the person who sent the
+  # original message, so Jeeves greets you.
+  Hello.new.say(event.user.username)
+end
+
+
+# Now look for commands that start with !greetings and use the name.
+Jeeves.command :greetings do |event, username|
+  Hello.new.say(username)
+end
+
+
+# and that's it. The rest is up to you! Use any Ruby code
+# you want, including other objects, modules, Gems, whatever!
+# Make an awesome thing!

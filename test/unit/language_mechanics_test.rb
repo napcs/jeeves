@@ -7,8 +7,7 @@ require 'language_mechanics'
 # Define the test class
 class LanguageMechanicsTest < MiniTest::Test
 
-  # Define your first test case.
-  
+=begin
   def test_comma_inside_of_quotation
     bot = make_bot(LanguageMechanics)
     message = make_message(bot, '"hello,"')
@@ -453,5 +452,6 @@ class LanguageMechanicsTest < MiniTest::Test
 
   end
 
+=end
 
 end
