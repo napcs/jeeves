@@ -1,8 +1,10 @@
-## Jeeves
+# Jeeves
 
-Simple chat bot for my class chatroom using Cinch.
+A Discord chat bot with plugins built on [Discordrb](https://github.com/shardlab/discordrb).
 
-### Setup
+## Setup
+
+Create a Discord bot, set up the appropriate permissions, and invite the bot to your server. Grab the bot token.
 
 Clone this repo.
 
@@ -79,7 +81,6 @@ this to build your own new plugin.
 * room: video and screen sharing with Room.co
 * stack_overflow: Query StackOverflow for answers. Returns 3 results based on query.
 * store_url: Store URLs from chat, list stored URLs, retrieve URLs
-* sun_info: Get current day sunrise and sunset information
 * trivia: A simple trivia question plugin
 * weather: Gets the weather based on zip or city name
 * word_of_the_day: Displays word of the day with definition
@@ -92,10 +93,32 @@ this to build your own new plugin.
 * moon_info: Get moon information for the current day
 * language_mechanics: Grammar bot to correct poor grammar automatically
 * imdb: Get information about a movie, tv show, or video game
+* sun_info: Get current day sunrise and sunset information
 
-## Making a plugin
 
-Plugins are just files that include calls to `Jeeves.command` to define commands. 
+See the `hello` plugin for more details, or look at the other plugins to get ideas.
+Make a plugin and contribute it!
+
+## Contributing
+
+Fork, send pull request. Keep commits small and organized. Don't add features
+to `jeeves.rb` please. Use plugins for that.
+
+### Making a plugin
+
+Plugins are just files that include calls to `Jeeves.command` to define commands:
+
+
+```
+Jeeves.command :ping do
+  "Pong!"
+end
+```
+
+Whatever you return from the block will be sent to the channel where the event was instantiated. 
+
+For anything more complex, build a regular Ruby class to hold your input and output logic, then use command blocks to
+handle the incoming message. 
 
 Here's an example:
 
@@ -115,7 +138,6 @@ end
 # Append a new message to the array of messages.
 $help_messages << "!hello:   Make Jeeves greet you."
 
-
 # look for commands that start with "!hello"
 # This will run the "execute" method and pass
 # it the chat message object.
@@ -125,37 +147,27 @@ Jeeves.command :hello do |event|
   Hello.new.say(event.user.username)
 end
 
-
 # Now look for commands that start with !greetings and use the name provided.
 Jeeves.command :greetings do |event, username|
   Hello.new.say(username)
 end
 ```
 
+The `event` object will get you access to the `user` and more. You'll want to look at [Discordrb's documentation](https://drb.shardlab.dev/v3.4.0/) for more, or study the existing plugins.
 
-
-See the `hello` plugin for more details, or look at the other plugins to get ideas.
-Make a plugin and contribute it!
-
-## Contributing
-
-Fork, send pull request. Keep commits small and organized. Don't add features
-to `jeeves.rb` please. Use plugins for that.
-
-### The Hello plugin
-
-See `plugins/hello.rb` for how to write a basic plugin.
 
 ### Test your plugins
 
-See `test/unit/hello_test.rb` for how to test a plugin. Plugins use the
-Cinch-test library.
+Test your plugins. Create unit tests for the functionality of your plugins. There's currently no testing library, so you should test your plugin's implementations rather than testing the plugin's integration with Discord.
 
-Use
+Run the tests with the following command:
 
-    rake test
+```
+rake test
+```
 
-to run tests.
+
+
 
 ## License
 MIT.
