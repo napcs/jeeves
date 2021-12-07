@@ -1,4 +1,5 @@
 # This is a debug plugin. It's useful for testing.
+require 'pry'
 
 Jeeves.command :message_info do |event|
   out = "Debug info:\n"
@@ -10,4 +11,27 @@ Jeeves.command :message_info do |event|
   end
 
   out
+end
+
+Jeeves.command :echo do |event, query|
+  query
+end
+
+Jeeves.command :user_info do |event, query| 
+  regex = /<@!(.*)>/
+
+  if query =~ regex
+    id = $1.to_i
+    user = event.server.members.find {|user| user.id == id}
+  else
+    user = event.server.members.find {|user| user.username == query}
+  end
+
+  if user
+    result = "Username: #{user.username}\n"
+    result << "ID: #{user.id}\n"
+    result << "Joined: #{user.joined_at}\n"
+  else
+    "#{query} was not found"
+  end
 end

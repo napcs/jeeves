@@ -6,6 +6,7 @@ gem 'tzinfo'
 gem 'redis'
 
 gem 'foreman'
+gem 'pry'
 
 gem 'minitest', '~> 5.4.3'
 gem 'rake', '~> 10.4.0'

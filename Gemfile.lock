@@ -109,10 +109,11 @@ DEPENDENCIES
   guard-minitest (~> 2.4.0)
   minitest (~> 5.4.3)
   nokogiri
+  pry
   rake (~> 10.4.0)
   redis
   tzinfo
   webmock
 
 BUNDLED WITH
-   2.2.30
+   2.2.32
