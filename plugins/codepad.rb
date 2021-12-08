@@ -40,9 +40,3 @@ Jeeves.command(:codepad_for) do |event, username|
   nil
 end
 
-def find_user_by_username(event, username)
-  user = event.server.members.find{|user| user.username == username}
-  if user
-    user[1]   # the 0 index has the id, the 1 index has the User object
-  end
-end

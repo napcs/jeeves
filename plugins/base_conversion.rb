@@ -6,18 +6,6 @@
 
 class BaseConversion
 
-
-  include Cinch::Plugin
-
-
-  $help_messages << "!to_binary:  converts string to binary"
-  $help_messages << "!to_hex:  converts string to hexadecimal"
-
-
-  match /to_binary (.+)/, method: :displayBinary
-  match /to_hex (.+)/, method: :displayHex
-
-
   #fixes rubys concatenated binary bytes, eg. 1 = 1, 2 = 10
   def setLength(binary)
     while binary.length % 8 != 0
@@ -25,7 +13,6 @@ class BaseConversion
     end
     binary
   end
-
 
   #create extra spaces around space byte so user can easily see them
   def addSpace(value)
@@ -53,9 +40,6 @@ class BaseConversion
     output.join(' ')
   end
 
-
-
-
   def convertToHex(message)
     output = Array.new
 
@@ -72,13 +56,19 @@ class BaseConversion
      output.join(' ')
   end
 
-
-  def displayBinary(m, message)
-    m.reply convertToBinary(message)
+  def displayBinary(message)
+    convertToBinary(message)
   end
 
-  def displayHex(m, message)
-    m.reply convertToHex(message)
+  def displayHex(message)
+    convertToHex(message)
   end
 
 end
+
+
+  $help_messages << "!to_binary:  converts string to binary"
+  $help_messages << "!to_hex:  converts string to hexadecimal"
+
+Jeeves.command(:to_binary) { |_event, query| BaseConversion.new.displayBinary(query) }
+Jeeves.command(:to_hex) { |_event, query| BaseConversion.new.displayHex(query) }

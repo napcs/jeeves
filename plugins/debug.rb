@@ -17,15 +17,9 @@ Jeeves.command :echo do |event, query|
   query
 end
 
-Jeeves.command :user_info do |event, query| 
-  regex = /<@!(.*)>/
+Jeeves.command :user_info do |event, query|
 
-  if query =~ regex
-    id = $1.to_i
-    user = event.server.members.find {|user| user.id == id}
-  else
-    user = event.server.members.find {|user| user.username == query}
-  end
+  user = get_user(event, query)
 
   if user
     result = "Username: #{user.username}\n"
@@ -34,4 +28,22 @@ Jeeves.command :user_info do |event, query|
   else
     "#{query} was not found"
   end
+end
+
+Jeeves.command :mention do |event, query|
+
+  user = get_user(event, query)
+  user.mention
+
+end
+
+
+Jeeves.command :users do |event|
+  event.server.members.collect do |u|
+    u.username
+  end.join("\n")
+end
+
+Jeeves.command :valid_user do |event, query|
+  valid_user?(event, query)
 end

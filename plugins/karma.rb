@@ -73,10 +73,6 @@ class Karma
     errors
   end
 
-  def valid_user?(event, username)
-    !!event.server.members.find{|user| user.username == username}
-  end
-
   def props(options)
     KARMA_STORE.add_points(options[:to], options[:points])
     phrases = PROPS_PHRASES
@@ -174,13 +170,3 @@ Jeeves.command :scoreboard do |event|
   karma.scoreboard
 end
 
-Jeeves.command :users do |event|
-  event.server.members.collect do |u|
-    u.username
-  end.join("\n")
-end
-
-Jeeves.command :valid_user do |event, nick|
-  k = Karma.new
-  k.valid_user? event, nick
-end

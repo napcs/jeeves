@@ -2,20 +2,10 @@ require 'rubygems'
 require 'discordrb'
 require 'yaml'
 
-# This method is taken from rails core
-# (didn't want to load the entire lib for one method)
-# http://api.rubyonrails.org/classes/ActiveSupport/Inflector.html#method-i-constantize
-def constantize(camel_cased_word)
-  names = camel_cased_word.split('::')
-  names.shift if names.empty? || names.first.empty?
+require './lib/helpers'
 
-  constant = Object
-  names.each do |name|
-    constant = constant.const_defined?(name) ? constant.const_get(name) : constant.const_missing(name)
-  end
-  constant
-end
-
+include JeevesHelpers::Utilities
+include JeevesHelpers::UserHelper
 
 begin
   $settings = YAML.load(File.read("bot.yml"))

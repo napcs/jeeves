@@ -1,6 +1,7 @@
 class Blackjack
-  include Cinch::Plugin
-  
+
+  raise "This plugin is not supported and needs a rewrite"
+
   SUITS = %w{spades hearts clubs diamonds}
   RANK_TO_NAME = %w{ace two three four five six seven eight nine ten jack queen king}
 
@@ -15,7 +16,7 @@ class Blackjack
   end
 
   $help_messages << "!blackjack       Start a hand"
-  match /blackjack/, method: :blackjack 
+  match /blackjack/, method: :blackjack
 
   $help_messages << "!dealmein        Be dealt into a hand"
   match /dealmein/, method: :dealmein
@@ -112,9 +113,9 @@ class Blackjack
       end
       if winners.empty?
         m.reply "dealer wins!"
-      else 
+      else
         m.reply "#{winners.join(', ')} #{winners[1] ? 'have' : 'has'} won!"
-      end    
+      end
     end
   end
 
